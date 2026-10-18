@@ -133,3 +133,20 @@ a:hover {
   filter: blur(60px);
   z-index: 0;
 }
+
+/* Responsive Utilities */
+.show-mobile {
+  display: none !important;
+}
+
+@media (max-width: 860px) {
+  .hide-mobile {
+    display: none !important;
+  }
+  .show-mobile {
+    display: inline-flex !important;
+  }
+  .auth-grid-responsive {
+    grid-template-columns: 1fr !important;
+  }
+}

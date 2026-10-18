@@ -1,217 +1,214 @@
-# ☕ ShopMate AI — AI-Powered Café Ordering & Barista Operations
-### REVHACK 2026 | 5-Minute Pitch Project · Idea #10: Local Commerce SaaS (₹499/month)
+# ☕ ShopMate.AI — AI-Powered Café Ordering, Multilingual Concierge & Barista Kitchen Operations
+### Next-Generation Conversational Commerce for Independent Cafés & Artisan Roasters
 
 [![Production Deployment](https://img.shields.io/badge/Vercel-Live%20Production-10B981?style=for-the-badge&logo=vercel&logoColor=white)](https://shopmateai.vercel.app)
-[![Tech Stack](https://img.shields.io/badge/Tech-React%2019%20%7C%20Vite%20%7C%20Gemini%20Flash%20%7C%20Firebase-F59E0B?style=for-the-badge)](https://shopmateai.vercel.app)
-[![License](https://img.shields.io/badge/License-MIT-3B82F6?style=for-the-badge)](https://shopmateai.vercel.app)
+[![GitHub Repository](https://img.shields.io/badge/GitHub-codexanjan%2Fshopmateai-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/codexanjan/shopmateai)
+[![Tech Stack](https://img.shields.io/badge/Tech-React%2019%20%7C%20Vite%20%7C%20Gemini%201.5%20%7C%20Firebase-F59E0B?style=for-the-badge)](https://shopmateai.vercel.app)
+[![SaaS Pricing](https://img.shields.io/badge/Pricing-₹499%2Fmonth%20Flat-8B5CF6?style=for-the-badge)](https://shopmateai.vercel.app)
 
 ---
 
 ## 🌐 Live Production Application
 
-> **Primary Public Production URL:** **[https://shopmateai.vercel.app](https://shopmateai.vercel.app)**  
+> **Primary Live Production URL:** **[https://shopmateai.vercel.app](https://shopmateai.vercel.app)**  
 > **Secondary Production Mirror:** **[https://shopmate-ai-tau.vercel.app](https://shopmate-ai-tau.vercel.app)**  
+> **GitHub Repository:** **[https://github.com/codexanjan/shopmateai](https://github.com/codexanjan/shopmateai)**  
 > **Local Dev Server:** `http://127.0.0.1:5173/`
 
 ---
 
-## 📌 Executive Summary & Problem Statement
+## 📸 App Architecture & Visual Pages Overview
 
-Small-to-medium independent cafés, artisan roasters, and neighbourhood bakeries lose an estimated **20% to 35% of daily takeaway and table orders** because baristas are busy pulling espresso shots or steaming milk, leaving digital inquiries (WhatsApp messages, Instagram DMs, and phone calls) unanswered.
+ShopMate AI is structured into **clean, dedicated standalone pages** and views:
 
-### The 3 Core Pain Points:
-1. **Delayed Responses:** Customers abandon orders when queries about opening hours, Wi-Fi, table availability, or vegan options go unanswered.
-2. **Repetitive Workload:** Owners spend 2.5+ hours daily answering the exact same routine questions.
-3. **Manual Order Errors & High Commissions:** Orders scribbled on napkins cause kitchen delays, while third-party food aggregators take 20%–30% in commission fees.
-
----
-
-## 🚀 The 7 Unique Killer Features
-
-```
-┌────────────────────────────────────────────────────────────────────────┐
-│                        SHOPMATE AI ECOSYSTEM                           │
-├──────────────────────────┬─────────────────────────────────────────────┤
-│ 1. Smart Order Recovery  │ Suggests alternatives on out-of-stock items │
-│ 2. Multilingual Ordering │ Colloquial Kannada + English (Kanglish)     │
-│ 3. Budget Meal Planner   │ Calculates verified combos under ₹150 / ₹300│
-│ 4. Owner Intelligence    │ Proactive rush alerts & inventory restocks  │
-│ 5. Dynamic ETA Estimator │ Live prep time + kitchen queue calculation  │
-│ 6. Trustworthy AI Engine │ Grounded in DB — Zero price hallucinations  │
-│ 7. Preference Memory     │ Transparent customer taste & dietary memory │
-└──────────────────────────┴─────────────────────────────────────────────┘
-```
-
-### Feature 1: Smart Order Recovery (Top Pick)
-- **Sold Out Handling:** When a guest asks for an item that is out-of-stock (e.g. *Dark Chocolate Sea Salt Brownie*), the AI never dead-ends. It explains the batch finished and offers warm in-stock alternatives (*Flaky Butter Croissant ₹160* or *Almond Frangipane Tart ₹210*).
-- **Abandoned Bag Recovery:** If a customer adds items to their cart and pauses, a floating banner offers a 1-click restore before their brew slot resets.
-
-### Feature 2: Local-Language Ordering (Kannada + English)
-- Understands local Bengaluru speech patterns and colloquial Kannada:
-  - *"Ondu filter coffee kodi"* ➔ Adds 1x Classic Chikmagalur Filter Coffee (₹80).
-  - *"Eradu masala chai beku"* ➔ Adds 2x Cardamom Spiced Masala Chai (₹140).
-  - *"Oota enide?"* ➔ Lists available craft bakery and snacks in Kannada & English.
-
-### Feature 3: Smart Budget Meal Planner
-- Customer asks: *"What can I order for less than 150 rupees?"*
-- Calculates mathematically verified menu items from the database (e.g., *1x Classic Filter Coffee ₹80 + 1x Cardamom Masala Chai ₹70 = ₹150 exact!*), completely eliminating price hallucinations.
-
-### Feature 4: Café Owner Intelligence & Decision Support
-- Located in the **Owner Dashboard ➔ AI Marketing Copilot & Analytics**.
-- Identifies the 8:30–11:00 AM rush, top-selling cold brews, and issues proactive operational advice (e.g. *"Pre-brew 12 bottles of Cold Brew for tomorrow's morning rush"* and *"Reorder Barista Oat Milk"*).
-
-### Feature 5: Realistic Pickup-Time Estimator
-- Dynamic formula: `Max(Selected Item Prep Times) + (2.5 mins × Active Tickets in Kitchen Queue)`.
-- Live countdown displayed in the cart drawer and order tracking screen.
-
-### Feature 6: Trustworthy AI with Source-Based Answers
-- All prices and items originate strictly from the verified menu catalog.
-- If out-of-scope items (e.g. pizza, sushi) are requested, the AI admits it and recommends the closest craft menu item (*Truffle Wild Mushroom Sourdough Melt ₹290*).
-
-### Feature 7: Customer Preference Memory
-- Remembers dietary flags (Vegetarian/Vegan), preferred milk (Oat/Almond), sweetness level, and usual budget.
-- Click **`🧠 Memory`** in the top navbar to inspect, modify, or erase your stored AI profile anytime.
+| Page / View | Route State | Purpose & Features |
+| :--- | :--- | :--- |
+| **🏠 Separate Landing Page** | `landing` | High-converting public showcase, value proposition, 7 AI superpowers, live café stats ticker, transparent pricing comparison (₹499/mo vs 30% commission), customer testimonials. |
+| **☕ Separate Café Menu Page** | `menu` | Artisanal beverage & food catalog, category tabs (Espresso, Cold Brew, Bakery, Brunch), dietary pills (Vegan 🌱, Gluten-Free 🌾, Chef's Special 🌟), search, item customization modal. |
+| **📅 Separate Table Booking Page** | `table` | Dedicated table reservation experience, atmosphere selector (🌿 Sunlit Pet-Friendly Patio, ☕ Indoor Cozy Booth, 💻 Quiet Work Zone with 300 Mbps Wi-Fi & outlets), instant confirmation. |
+| **⏱️ Separate Order Tracker Page** | `tracker` | Live 4-stage brewing progress (Order Placed ➔ Brewing / In Oven ➔ Quality Check ➔ Ready for Pickup), dynamic preparation countdown timer, barista status. |
+| **📊 Separate Owner & Kitchen Dashboard** | `admin` | Live Kitchen Kanban dispatch board (Pending, Brewing, Ready, Delivered), sales & order metrics, AI Inventory Restock alerts, Menu item availability toggle (instantly syncs with AI recovery). |
+| **🔑 Separate Login & Signup Page** | `auth` | Standalone split-screen authentication portal, toggle between Sign In and Create Account, 1-Click Instant Demo Logins (Customer, Café Owner, Barista Staff), form validation, role routing. |
 
 ---
 
-## 🏆 REVHACK 5-Minute Pitch Walkthrough
+## 🌐 Universal Multilingual Chatbot (Answers in ALL Languages)
 
-Click the glowing **`REVHACK Judge Demo`** button in the top navbar to open the interactive pitch simulator:
+ShopMate AI's conversational concierge is equipped with **universal multilingual intelligence**:
+
+```
+┌─────────────────────────────────────────────────────────────────────────┐
+│                    SHOPMATE AI MULTILINGUAL CONCIERGE                   │
+├──────────────────────────┬──────────────────────────────────────────────┤
+│ 🌐 Auto-Detect Engine    │ Automatically detects ANY world language     │
+│ 🇮🇳 Kannada (ಕನ್ನಡ)       │ "Ondu filter coffee kodi", "Oota enide?"    │
+│ 🇮🇳 Hindi (हिंदी)         │ "Do masala chai chahiye", "Menu me kya hai?" │
+│ 🇮🇳 Tamil (தமிழ்)         │ "Oru filter coffee kudunga", "Vanakkam"      │
+│ 🇮🇳 Telugu (తెలుగు)       │ "Oka French croissant ivvandi"               │
+│ 🇪🇸 Spanish (Español)     │ "Hola, un café con leche de avena por favor" │
+│ 🇫🇷 French (Français)     │ "Bonjour, un croissant et un café filtre"    │
+│ 🇩🇪 German (Deutsch)      │ "Guten Tag, einen Filterkaffee bitte"        │
+└──────────────────────────┴──────────────────────────────────────────────┘
+```
+
+- **Zero Hallucination Grounding:** Prices are always grounded in live database prices in Indian Rupees (₹).
+- **Hinglish, Kanglish & Tanglish Support:** Accurately recognizes transliterated phonetic phrases.
+- **Language Selector Ribbon:** Floating drawer features quick-toggle language tabs and localized suggestion chips.
+
+---
+
+## 🚀 The 7 Core Killer Features
 
 ```mermaid
-journey
-    title 5-Minute Judge Pitch Flow
-    section 0:00 - 0:30 (Hook)
-      Judges hear busy café phone problem: 5: Customer
-    section 0:30 - 1:05 (Pain Points)
-      Delayed response & lost orders: 4: Customer, Owner
-    section 1:05 - 2:00 (Solution)
-      Customer chat + Owner dashboard: 5: Customer, Owner
-    section 2:00 - 2:40 (Live Demo)
-      Kannada ordering & Budget under ₹150: 5: Customer
-    section 2:40 - 3:20 (Tech Stack)
-      React 19, Gemini Flash, Firebase: 5: System
-    section 3:20 - 4:00 (Business Model)
-      Flat ₹499/mo SaaS & ROI calculator: 5: Owner
-    section 4:00 - 5:00 (Closing)
-      Validation & Q&A: 5: Judges
+graph TD
+    A[ShopMate AI Concierge] --> B[1. Smart Order Recovery]
+    A --> C[2. Universal Multilingual Ordering]
+    A --> D[3. Smart Budget Meal Planner]
+    A --> E[4. Owner Intelligence & Restock AI]
+    A --> F[5. Dynamic Pickup-Time Estimator]
+    A --> G[6. Trustworthy Zero-Hallucination AI]
+    A --> H[7. Customer Preference Memory]
+
+    B --> B1[Sold-out alternatives + Abandoned cart restore]
+    C --> C1[Kannada, Hindi, Tamil, Telugu, Spanish, French, EN]
+    D --> D1[Calculates exact combinations under ₹150 / ₹300]
+    E --> E1[Morning rush forecast + Arabica bean alerts]
+    F --> F1[Live prep time + tickets in kitchen queue]
+    G --> G1[Grounded in live database menu catalog]
+    H --> H1[Remembers Oat Milk, Vegan, and Sweetness]
 ```
+
+### 1. Smart Order Recovery
+When a customer requests an out-of-stock item (e.g. *Dark Chocolate Sea Salt Brownie*), the AI concierge never stops with a dead-end rejection. It explains that the morning batch finished and recommends in-stock chef alternatives (*Flaky French Butter Croissant ₹160* or *Almond Frangipane Tart ₹210*).
+
+### 2. Universal Multilingual Ordering
+Customers can order fluently in their native tongue. Whether typing *"Ondu filter coffee kodi"* (Kannada) or *"Do masala chai aur pastry chahiye"* (Hindi), the AI understands quantities, prepares the order, and updates the cart with 1 click.
+
+### 3. Smart Budget Meal Planner
+Ask *"Suggest a combo under 150 rupees"*, and the AI calculates mathematically exact combinations from active inventory (e.g. *Classic Filter Coffee ₹80 + Cardamom Chai ₹70 = ₹150 Exact*).
+
+### 4. Café Owner Decision Support
+The Owner Dashboard features proactive intelligence: analyzes sales velocity, forecasts morning rush spikes (8:30 AM – 11:00 AM), and warns when supplies (like Barista Oat Milk or Arabica Beans) drop below threshold.
+
+### 5. Dynamic Pickup-Time Estimator
+Instead of a static "20 mins", ETA is computed dynamically:
+$$\text{ETA} = \max(\text{Selected Item Prep Times}) + (2.5\text{ mins} \times \text{Active Kitchen Queue Tickets})$$
+
+### 6. Trustworthy AI Grounded in Reality
+If an out-of-scope item is asked for (e.g. sushi, pizza, biryani), the AI politely clarifies that Brew & Bliss specializes in artisanal coffee and fresh bakery, offering the closest relevant craft item.
+
+### 7. Customer Preference Memory
+Remembers dietary preferences (Vegan, Gluten-Free), preferred milk (Oat Milk), and usual budget. Customers can click **`🧠 Memory`** in the navigation bar to inspect, edit, or reset their saved taste profile at any time.
 
 ---
 
-## 🛠️ Technology Stack Architecture
+## 🔄 End-to-End Workflow Diagram
 
 ```mermaid
-flowchart TD
-    subgraph Client [Frontend - React 19 + Vite]
-        UI[Storefront & Landing Page]
-        ChatWidget[ShopMate AI Bot Widget]
-        AdminUI[Barista Kitchen Kanban]
-        StateStore[(Reactive State Store - Local & Cloud)]
-    end
+sequenceDiagram
+    autonumber
+    actor Customer
+    participant Nav as Navigation Bar
+    participant Chat as Multilingual AI Bot
+    participant Menu as Menu Database
+    participant Cart as Cart & Checkout
+    participant Kanban as Kitchen Dashboard
+    actor Barista
 
-    subgraph Intelligence [AI & NLP Layer]
-        GeminiFlash[Google Gemini Flash API]
-        HeuristicEngine[Offline Barista Heuristics Engine]
-        PromptEngine[Live Menu & Hours Knowledge Injector]
-    end
-
-    subgraph Cloud [Deployment & Cloud]
-        VercelCDN[Vercel Global Edge CDN]
-        FirebaseApp[Firebase Web App 1:84930219485]
-    end
-
-    UI --> StateStore
-    AdminUI --> StateStore
-    ChatWidget --> PromptEngine
-    PromptEngine --> GeminiFlash
-    PromptEngine -.-> HeuristicEngine
-    StateStore <--> VercelCDN
-    StateStore <--> FirebaseApp
-```
-
-- **Frontend:** React 19, Vite, Modern CSS Design Tokens (Velvet Espresso & Amber Crema theme, glassmorphism).
-- **Icons & Effects:** `lucide-react`, `canvas-confetti`.
-- **AI Engine:** Google Gemini Flash API (`gemini-1.5-flash`) + Local Fallback Barista Heuristics.
-- **Audio Synthesizer:** Web Audio API generating bell chimes and tactile sound effects without external MP3 dependencies.
-- **Cloud Configuration:** Firebase Web App ID `1:84930219485:web:9c7a8b6e4d2f01a3`.
-- **Deployment:** Vercel Global Edge Network with custom SPA rewrites.
-
----
-
-## 📂 Project Directory Structure
-
-```
-c:/Users/anjan/Downloads/SHOP MATE/
-├── public/
-│   └── favicon.svg                  # Brand coffee cup vector icon
-├── src/
-│   ├── components/
-│   │   ├── admin/
-│   │   │   └── AdminDashboard.jsx   # Live Kanban, Menu CRUD, Analytics, AI Copilot
-│   │   ├── chatbot/
-│   │   │   └── ChatWidget.jsx       # Floating Gemini bot with Kannada & chips
-│   │   ├── common/
-│   │   │   ├── AuthModal.jsx        # Multi-role auth + 1-Click Demo Logins
-│   │   │   ├── Footer.jsx           # Café info, Wi-Fi pass, tech stack
-│   │   │   ├── JudgePitchSimulator.jsx # REVHACK 5-minute interactive pitch player
-│   │   │   ├── Navbar.jsx           # Live pulse, role toggle, memory badge
-│   │   │   └── Toast.jsx            # Notification banners
-│   │   ├── customer/
-│   │   │   ├── CartDrawer.jsx       # Slide-out checkout + dynamic ETA
-│   │   │   ├── ItemModal.jsx        # Drink customizer (milk, sugar, temp)
-│   │   │   ├── MenuCatalog.jsx      # Search, category pills, dietary tags
-│   │   │   ├── OrderRecoveryBanner.jsx # Feature #1 Smart Order Recovery
-│   │   │   ├── OrderTracker.jsx     # Live 4-stage brewing progress
-│   │   │   └── PreferenceMemoryModal.jsx # Feature #7 AI taste memory
-│   │   └── landing/
-│   │       ├── FeaturesGrid.jsx     # 6 core pillars
-│   │       ├── HeroSection.jsx      # High-conversion hero with steam glow
-│   │       ├── PricingSection.jsx   # ₹499/mo plan + interactive ROI calculator
-│   │       └── Testimonials.jsx     # Real coffee roaster reviews
-│   ├── context/
-│   │   ├── AuthContext.jsx          # User roles (Customer vs Barista)
-│   │   └── StoreContext.jsx         # Unified reactive state engine
-│   ├── data/
-│   │   └── mockData.js              # Menu items, Kannada vocabulary, pitch data
-│   ├── services/
-│   │   ├── audioService.js          # Web Audio synth for kitchen bells
-│   │   ├── firebase.js              # Firebase Web config (1:84930219485)
-│   │   └── geminiService.js         # Google Gemini Flash connector
-│   ├── styles/
-│   │   ├── animations.css           # Steam float, shimmer, pulse glow
-│   │   ├── components.css           # Glass panels, badges, form inputs
-│   │   └── design-tokens.css        # Bespoke color palette & typography
-│   ├── App.jsx                      # App router & modal mounting
-│   ├── main.jsx                     # Entry mounting providers
-│   └── index.css                    # Global typography & layout
-├── DEVELOPMENT_STRUCTURE_AND_UI_UX_PLAN.md
-├── PRD.md                           # Product Requirements Document
-├── SRS.md                           # Software Requirements Specification
-├── TRD.md                           # Technical Requirements Document
-├── vercel.json                      # Vercel SPA rewrite & security configuration
-└── render.yaml                      # Render static site configuration
+    Customer->>Nav: Browse Café Menu or Open Chat
+    Customer->>Chat: "Ondu filter coffee kodi" (Kannada)
+    Chat->>Menu: Query active price & stock status
+    Menu-->>Chat: Item available (₹80)
+    Chat-->>Customer: "ಖಂಡಿತ! Added 1x Filter Coffee to cart!"
+    Customer->>Cart: Review order & Apply promo "FIRSTSIP"
+    Cart->>Cart: Dynamic ETA calculated (8 mins)
+    Customer->>Cart: Confirm Payment via UPI / Card
+    Cart->>Kanban: Dispatch Order #9422 to "New Orders"
+    Barista->>Kanban: Move ticket to "Brewing / In Oven"
+    Kanban-->>Customer: Order Tracker updates live to "Brewing"
+    Barista->>Kanban: Mark "Ready for Pickup"
+    Kanban-->>Customer: Tactile sound alert & "Your coffee is ready!"
 ```
 
 ---
 
-## 💻 Running Locally
+## 🛠️ Complete Tech Stack
+
+```mermaid
+flowchart LR
+    subgraph Frontend [Modern Frontend Architecture]
+        R[React 19]
+        V[Vite 8.3]
+        CSS[Vanilla CSS Design Tokens]
+        L[Lucide React Icons]
+        A[Web Audio API Synth]
+    end
+
+    subgraph Intelligence [Multilingual AI Layer]
+        G[Google Gemini 1.5 Flash]
+        H[Heuristic Multilingual Engine]
+        Langs[Kannada / Hindi / Tamil / Telugu / Global]
+    end
+
+    subgraph Cloud [Edge Deployment & Hosting]
+        Vercel[Vercel Global Edge CDN]
+        GH[GitHub Version Control]
+        FB[Firebase Web Client]
+    end
+
+    Frontend <--> Intelligence
+    Frontend <--> Cloud
+```
+
+- **Frontend Core:** React 19, Vite, HTML5, Vanilla CSS with HSL design tokens, Glassmorphism.
+- **Icons & Tactile Feedback:** `lucide-react`, Web Audio API sound synthesizer (zero external MP3 dependencies).
+- **AI Engine:** Google Gemini 1.5 Flash API + Resilient Multilingual Fallback Engine.
+- **Cloud Backend:** Firebase Web configuration (`1:84930219485:web:9c7a8b6e4d2f01a3`).
+- **Edge CDN:** Vercel Global Edge Network with custom SPA rewrites (`vercel.json`).
+
+---
+
+## 💻 Local Development Setup
 
 ```bash
-# 1. Install dependencies
+# 1. Clone repository
+git clone https://github.com/codexanjan/shopmateai.git
+cd shopmateai
+
+# 2. Install dependencies
 npm install
 
-# 2. Launch Vite development server
+# 3. Start local development server
 npm run dev
 ```
 
-Open `http://127.0.0.1:5173/` in your browser.
+Visit `http://127.0.0.1:5173/` in your browser.
+
+To create an optimized production build:
+```bash
+npm run build
+```
 
 ---
 
 ## 👥 Demo Profiles Included
 
-- **Customer:** `Alex Morgan` (`alex.coffee@gmail.com`)
-- **Café Owner & Barista:** `Viraj Bagul` (`owner@brewbliss.com`)
+- **Customer Demo:** `Alex Morgan` (`alex.coffee@gmail.com`) — Pre-loaded with Oat Milk & Cold Brew preferences.
+- **Café Owner & Admin:** `Viraj Bagul` (`owner@brewbliss.com`) — Full access to Kitchen Kanban, Inventory, & AI Copilot.
 
-Switch between profiles anytime using the **Customer ⇋ Owner** toggle pill in the top navigation bar!
+Switch between profiles instantly using the **Customer ⇋ Owner** toggle pill or via the dedicated **Sign In / Register** page (`currentView === "auth"`).
+
+---
+
+## 📜 Complete Documentation Suite
+
+- [PRD.md](file:///c:/Users/anjan/Downloads/SHOP%20MATE/PRD.md) — Product Requirements Document
+- [SRS.md](file:///c:/Users/anjan/Downloads/SHOP%20MATE/SRS.md) — Software Requirements Specification
+- [TRD.md](file:///c:/Users/anjan/Downloads/SHOP%20MATE/TRD.md) — Technical Requirements Document
+- [DEVELOPMENT_STRUCTURE_AND_UI_UX_PLAN.md](file:///c:/Users/anjan/Downloads/SHOP%20MATE/DEVELOPMENT_STRUCTURE_AND_UI_UX_PLAN.md) — UI/UX & Design Tokens
+
+---
+
+## ⚖️ License
+
+Crafted with ❤️ for independent local cafés and passionate coffee roasters. Distributed under the MIT License.

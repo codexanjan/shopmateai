@@ -1,5 +1,5 @@
 import React from "react";
-import { Coffee, Wifi, MapPin, Phone, ShieldCheck, Heart, Sparkles, ExternalLink } from "lucide-react";
+import { Coffee, Wifi, MapPin, Phone, ShieldCheck, Heart, Sparkles, LogIn, CalendarCheck } from "lucide-react";
 import { useStore } from "../../context/StoreContext";
 
 export default function Footer({ setCurrentView }) {
@@ -10,8 +10,8 @@ export default function Footer({ setCurrentView }) {
       style={{
         borderTop: "1px solid var(--border-subtle)",
         background: "var(--bg-secondary)",
-        paddingTop: "60px",
-        paddingBottom: "40px",
+        paddingTop: "50px",
+        paddingBottom: "36px",
         marginTop: "auto",
         position: "relative",
       }}
@@ -20,14 +20,14 @@ export default function Footer({ setCurrentView }) {
         <div
           style={{
             display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))",
-            gap: "36px",
-            marginBottom: "48px",
+            gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
+            gap: "32px",
+            marginBottom: "40px",
           }}
         >
           {/* Brand Info */}
           <div>
-            <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "16px" }}>
+            <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "14px" }}>
               <div
                 style={{
                   width: "36px",
@@ -46,42 +46,52 @@ export default function Footer({ setCurrentView }) {
                 ShopMate<span style={{ color: "var(--accent-amber)" }}>.AI</span>
               </span>
             </div>
-            <p style={{ fontSize: "0.88rem", color: "var(--text-secondary)", marginBottom: "16px", lineHeight: 1.6 }}>
-              The AI-Powered Ordering & Kitchen Operations platform designed for independent cafés, roasters, and neighbourhood bakeries.
+            <p style={{ fontSize: "0.85rem", color: "var(--text-secondary)", marginBottom: "14px", lineHeight: 1.6 }}>
+              Artisanal Café Ordering, Multilingual Concierge & Kitchen Decision Intelligence platform. Built for independent food commerce.
             </p>
-            <div style={{ display: "inline-flex", alignItems: "center", gap: "6px", background: "rgba(245, 158, 11, 0.1)", border: "1px solid rgba(245, 158, 11, 0.25)", padding: "4px 10px", borderRadius: "var(--radius-full)", fontSize: "0.78rem", color: "var(--accent-amber-light)" }}>
-              <Sparkles size={14} />
-              <span>₹499/mo Local Commerce SaaS</span>
+            <div style={{ display: "inline-flex", alignItems: "center", gap: "6px", background: "rgba(245, 158, 11, 0.1)", border: "1px solid rgba(245, 158, 11, 0.25)", padding: "4px 10px", borderRadius: "var(--radius-full)", fontSize: "0.75rem", color: "var(--accent-amber-light)" }}>
+              <Sparkles size={13} />
+              <span>Flat ₹499/mo · Zero Aggregator Commissions</span>
             </div>
           </div>
 
           {/* Café Location & Hours */}
           <div>
-            <h4 style={{ fontSize: "0.95rem", color: "var(--text-primary)", marginBottom: "16px", textTransform: "uppercase", letterSpacing: "0.05em" }}>
-              Visit Our Roastery
+            <h4 style={{ fontSize: "0.9rem", color: "var(--text-primary)", marginBottom: "14px", textTransform: "uppercase", letterSpacing: "0.05em" }}>
+              Brew & Bliss Roastery
             </h4>
-            <div style={{ display: "flex", flexDirection: "column", gap: "12px", fontSize: "0.85rem", color: "var(--text-secondary)" }}>
-              <div style={{ display: "flex", gap: "10px", alignItems: "flex-start" }}>
-                <MapPin size={16} color="#F59E0B" style={{ flexShrink: 0, marginTop: "2px" }} />
+            <div style={{ display: "flex", flexDirection: "column", gap: "10px", fontSize: "0.82rem", color: "var(--text-secondary)" }}>
+              <div style={{ display: "flex", gap: "8px", alignItems: "flex-start" }}>
+                <MapPin size={15} color="#F59E0B" style={{ flexShrink: 0, marginTop: "2px" }} />
                 <span>{cafeInfo.address}</span>
               </div>
-              <div style={{ display: "flex", gap: "10px", alignItems: "center" }}>
-                <Phone size={16} color="#F59E0B" style={{ flexShrink: 0 }} />
+              <div style={{ display: "flex", gap: "8px", alignItems: "center" }}>
+                <Phone size={15} color="#F59E0B" style={{ flexShrink: 0 }} />
                 <span>{cafeInfo.phone}</span>
               </div>
-              <div style={{ display: "flex", gap: "10px", alignItems: "center" }}>
-                <Wifi size={16} color="#10B981" style={{ flexShrink: 0 }} />
-                <span>Guest Wi-Fi: <strong style={{ color: "var(--text-primary)" }}>{cafeInfo.wifiSsid}</strong> (Pass: <code style={{ color: "var(--accent-amber)" }}>{cafeInfo.wifiPass}</code>)</span>
+              <div style={{ display: "flex", gap: "8px", alignItems: "center" }}>
+                <Wifi size={15} color="#10B981" style={{ flexShrink: 0 }} />
+                <span>Wi-Fi: <strong style={{ color: "var(--text-primary)" }}>{cafeInfo.wifiSsid}</strong></span>
               </div>
             </div>
           </div>
 
-          {/* Quick Links */}
+          {/* Separate Pages Navigation */}
           <div>
-            <h4 style={{ fontSize: "0.95rem", color: "var(--text-primary)", marginBottom: "16px", textTransform: "uppercase", letterSpacing: "0.05em" }}>
-              Quick Navigation
+            <h4 style={{ fontSize: "0.9rem", color: "var(--text-primary)", marginBottom: "14px", textTransform: "uppercase", letterSpacing: "0.05em" }}>
+              Explore Pages
             </h4>
-            <ul style={{ listStyle: "none", display: "flex", flexDirection: "column", gap: "10px", fontSize: "0.88rem" }}>
+            <ul style={{ listStyle: "none", display: "flex", flexDirection: "column", gap: "9px", fontSize: "0.85rem", padding: 0, margin: 0 }}>
+              <li>
+                <button
+                  onClick={() => setCurrentView("landing")}
+                  style={{ background: "none", border: "none", color: "var(--text-secondary)", cursor: "pointer", padding: 0 }}
+                  onMouseEnter={(e) => (e.currentTarget.style.color = "var(--accent-amber)")}
+                  onMouseLeave={(e) => (e.currentTarget.style.color = "var(--text-secondary)")}
+                >
+                  → Landing Page
+                </button>
+              </li>
               <li>
                 <button
                   onClick={() => setCurrentView("menu")}
@@ -89,17 +99,17 @@ export default function Footer({ setCurrentView }) {
                   onMouseEnter={(e) => (e.currentTarget.style.color = "var(--accent-amber)")}
                   onMouseLeave={(e) => (e.currentTarget.style.color = "var(--text-secondary)")}
                 >
-                  → Artisanal Coffee Menu
+                  → Café Menu & Ordering
                 </button>
               </li>
               <li>
                 <button
-                  onClick={() => setCurrentView("admin")}
+                  onClick={() => setCurrentView("table")}
                   style={{ background: "none", border: "none", color: "var(--text-secondary)", cursor: "pointer", padding: 0 }}
                   onMouseEnter={(e) => (e.currentTarget.style.color = "var(--accent-amber)")}
                   onMouseLeave={(e) => (e.currentTarget.style.color = "var(--text-secondary)")}
                 >
-                  → Live Kitchen Kanban & Barista Board
+                  → Book Table
                 </button>
               </li>
               <li>
@@ -109,43 +119,51 @@ export default function Footer({ setCurrentView }) {
                   onMouseEnter={(e) => (e.currentTarget.style.color = "var(--accent-amber)")}
                   onMouseLeave={(e) => (e.currentTarget.style.color = "var(--text-secondary)")}
                 >
-                  → Live Brewing Order Tracker
+                  → Live Order Tracker
                 </button>
               </li>
               <li>
                 <button
-                  onClick={() => setCurrentView("landing")}
+                  onClick={() => setCurrentView("admin")}
                   style={{ background: "none", border: "none", color: "var(--text-secondary)", cursor: "pointer", padding: 0 }}
                   onMouseEnter={(e) => (e.currentTarget.style.color = "var(--accent-amber)")}
                   onMouseLeave={(e) => (e.currentTarget.style.color = "var(--text-secondary)")}
                 >
-                  → Pricing & Business ROI Calculator
+                  → Owner & Kitchen Dashboard
+                </button>
+              </li>
+              <li>
+                <button
+                  onClick={() => setCurrentView("auth")}
+                  style={{ background: "none", border: "none", color: "var(--accent-amber)", cursor: "pointer", padding: 0, fontWeight: 600 }}
+                >
+                  → Sign In / Register Portal
                 </button>
               </li>
             </ul>
           </div>
 
-          {/* Specifications & Tech Stack */}
+          {/* Multilingual & System Specs */}
           <div>
-            <h4 style={{ fontSize: "0.95rem", color: "var(--text-primary)", marginBottom: "16px", textTransform: "uppercase", letterSpacing: "0.05em" }}>
-              Architecture & Docs
+            <h4 style={{ fontSize: "0.9rem", color: "var(--text-primary)", marginBottom: "14px", textTransform: "uppercase", letterSpacing: "0.05em" }}>
+              Multilingual Engine
             </h4>
-            <div style={{ display: "flex", flexDirection: "column", gap: "8px", fontSize: "0.82rem", color: "var(--text-secondary)" }}>
+            <div style={{ display: "flex", flexDirection: "column", gap: "8px", fontSize: "0.8rem", color: "var(--text-secondary)" }}>
               <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
                 <span style={{ color: "var(--accent-amber)" }}>●</span>
-                <span>Powered by <strong>Google Gemini API</strong></span>
+                <span>Fluent in English, ಕನ್ನಡ, हिंदी, தமிழ், తెలుగు</span>
               </div>
               <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
                 <span style={{ color: "var(--accent-amber)" }}>●</span>
-                <span>Firebase Web ID: <code style={{ fontSize: "0.75rem" }}>1:84930219485</code></span>
+                <span>Powered by Google Gemini 1.5 Flash</span>
               </div>
               <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
                 <span style={{ color: "var(--status-success)" }}>●</span>
-                <span>Includes PRD, SRS, TRD & UI/UX Plans</span>
+                <span>PRD, SRS & TRD Documentation Included</span>
               </div>
               <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
                 <span style={{ color: "var(--status-success)" }}>●</span>
-                <span>Ready for Vercel & Render edge deployment</span>
+                <span>Edge Deployed on Vercel</span>
               </div>
             </div>
           </div>
@@ -155,23 +173,23 @@ export default function Footer({ setCurrentView }) {
         <div
           style={{
             borderTop: "1px solid var(--border-subtle)",
-            paddingTop: "24px",
+            paddingTop: "20px",
             display: "flex",
             flexWrap: "wrap",
             justifyContent: "space-between",
             alignItems: "center",
             gap: "12px",
-            fontSize: "0.8rem",
+            fontSize: "0.78rem",
             color: "var(--text-muted)",
           }}
         >
           <div>
-            © {new Date().getFullYear()} ShopMate AI · Brew & Bliss Café Management System. All rights reserved.
+            © {new Date().getFullYear()} ShopMate AI · Brew & Bliss Roastery. All rights reserved.
           </div>
           <div style={{ display: "flex", alignItems: "center", gap: "4px" }}>
             <span>Crafted with</span>
-            <Heart size={13} color="#EF4444" fill="#EF4444" />
-            <span>for local coffee shops & passionate roasters</span>
+            <Heart size={12} color="#EF4444" fill="#EF4444" />
+            <span>for local cafés and independent coffee roasters</span>
           </div>
         </div>
       </div>

@@ -9,6 +9,9 @@ import AuthModal from "./components/common/AuthModal";
 import Toast from "./components/common/Toast";
 import JudgePitchSimulator from "./components/common/JudgePitchSimulator";
 
+// Auth Page (Separate Standalone View)
+import AuthPage from "./components/auth/AuthPage";
+
 // Landing Components
 import HeroSection from "./components/landing/HeroSection";
 import FeaturesGrid from "./components/landing/FeaturesGrid";
@@ -17,6 +20,7 @@ import Testimonials from "./components/landing/Testimonials";
 
 // Customer Components
 import MenuCatalog from "./components/customer/MenuCatalog";
+import TableBookingPage from "./components/customer/TableBookingPage";
 import ItemModal from "./components/customer/ItemModal";
 import CartDrawer from "./components/customer/CartDrawer";
 import OrderTracker from "./components/customer/OrderTracker";
@@ -24,48 +28,72 @@ import ReservationModal from "./components/customer/ReservationModal";
 import PreferenceMemoryModal from "./components/customer/PreferenceMemoryModal";
 import OrderRecoveryBanner from "./components/customer/OrderRecoveryBanner";
 
-// Chatbot
+// Multilingual Chatbot
 import ChatWidget from "./components/chatbot/ChatWidget";
 
 // Admin Dashboard
 import AdminDashboard from "./components/admin/AdminDashboard";
 
 function MainApp() {
-  const [currentView, setCurrentView] = useState("landing"); // landing | menu | tracker | admin
+  const [currentView, setCurrentView] = useState("landing"); // landing | menu | table | tracker | admin | auth
 
   return (
     <div className="app-container">
-      {/* Navigation */}
+      {/* Navigation Menu Bar */}
       <Navbar currentView={currentView} setCurrentView={setCurrentView} />
 
       {/* Main Content Router */}
       <main className="main-content">
+        {/* Separate Landing Page */}
         {currentView === "landing" && (
-          <>
+          <div className="animate-fade-in">
             <HeroSection setCurrentView={setCurrentView} />
             <FeaturesGrid />
             <PricingSection setCurrentView={setCurrentView} />
             <Testimonials />
-          </>
+          </div>
         )}
 
+        {/* Separate Café Menu Page */}
         {currentView === "menu" && (
-          <MenuCatalog />
+          <div className="animate-fade-in">
+            <MenuCatalog />
+          </div>
         )}
 
+        {/* Separate Table Booking Page */}
+        {currentView === "table" && (
+          <div className="animate-fade-in">
+            <TableBookingPage setCurrentView={setCurrentView} />
+          </div>
+        )}
+
+        {/* Separate Live Order Tracker Page */}
         {currentView === "tracker" && (
-          <OrderTracker setCurrentView={setCurrentView} />
+          <div className="animate-fade-in">
+            <OrderTracker setCurrentView={setCurrentView} />
+          </div>
         )}
 
+        {/* Separate Kitchen & Admin Dashboard */}
         {currentView === "admin" && (
-          <AdminDashboard />
+          <div className="animate-fade-in">
+            <AdminDashboard />
+          </div>
+        )}
+
+        {/* Separate Dedicated Sign In / Signup Page */}
+        {currentView === "auth" && (
+          <div className="animate-fade-in">
+            <AuthPage setCurrentView={setCurrentView} />
+          </div>
         )}
       </main>
 
-      {/* Footer */}
+      {/* Global Footer */}
       <Footer setCurrentView={setCurrentView} />
 
-      {/* Global Interactive Overlays & 7 Killer Features */}
+      {/* Global Interactive Overlays */}
       <ItemModal />
       <CartDrawer setCurrentView={setCurrentView} />
       <ReservationModal />

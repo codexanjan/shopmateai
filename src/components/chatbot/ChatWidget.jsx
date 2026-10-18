@@ -13,6 +13,7 @@ import {
   RotateCcw,
   Volume2,
   VolumeX,
+  Globe,
   Languages,
 } from "lucide-react";
 
@@ -29,11 +30,12 @@ export default function ChatWidget() {
   } = useStore();
 
   const [isOpen, setIsOpen] = useState(false);
+  const [selectedLanguage, setSelectedLanguage] = useState("auto"); // auto, kn, hi, ta, te, es, fr, de, en
   const [messages, setMessages] = useState([
     {
       id: "welcome",
       sender: "bot",
-      text: `Namaskara! I'm **ShopMate AI**, your concierge at ${cafeInfo.name} ☕✨\n\nI can converse in **English or Kannada**, suggest food under a budget, handle customizations, and answer any judge questions regarding REVHACK!`,
+      text: `Hello! Namaskara! नमस्ते! I'm **ShopMate AI**, your multilingual concierge at ${cafeInfo.name} ☕✨\n\nI understand and answer in **ALL languages** — English, Kannada (ಕನ್ನಡ), Hindi (हिंदी), Tamil (தமிழ்), Telugu (తెలుగు), Spanish (Español), French (Français), and more!\n\nHow may I brew your day today?`,
       timestamp: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
     },
   ]);
@@ -41,13 +43,28 @@ export default function ChatWidget() {
   const [isTyping, setIsTyping] = useState(false);
   const messagesEndRef = useRef(null);
 
+  const languageTabs = [
+    { id: "auto", label: "🌐 Auto-Detect" },
+    { id: "en", label: "English" },
+    { id: "kn", label: "ಕನ್ನಡ (Kannada)" },
+    { id: "hi", label: "हिंदी (Hindi)" },
+    { id: "ta", label: "தமிழ் (Tamil)" },
+    { id: "te", label: "తెలుగు (Telugu)" },
+    { id: "es", label: "Español" },
+    { id: "fr", label: "Français" },
+  ];
+
+  // Dynamic chips based on chosen language
   const quickChips = [
-    { label: "🙏 Ondu filter coffee kodi (Kannada)", text: "Ondu filter coffee kodi" },
-    { label: "💰 Food under ₹150 for 2", text: "What can I order for less than 150 rupees?" },
-    { label: "🍫 Order Brownie (Test Sold Out Recovery)", text: "Can I get the Dark Chocolate Sea Salt Brownie?" },
-    { label: "🏆 REVHACK pitch summary for judges", text: "Summarize the REVHACK 5-minute pitch and business model" },
-    { label: "📶 Guest Wi-Fi & Hours", text: "What is your guest Wi-Fi password and hours?" },
-    { label: "🛒 Add 2 Cold Brews to cart", text: "Add 2 Signature 18-Hour Cold Brews to my cart" },
+    { label: "ಕನ್ನಡ: Ondu filter coffee kodi", text: "Ondu filter coffee kodi" },
+    { label: "हिंदी: Do masala chai chahiye", text: "Do masala chai chahiye" },
+    { label: "தமிழ்: Oru filter coffee kudunga", text: "Oru filter coffee kudunga" },
+    { label: "తెలుగు: Oka croissant ivvandi", text: "Oka croissant ivvandi" },
+    { label: "Español: Un café por favor", text: "Hola, un café por favor" },
+    { label: "Français: Quel est le menu?", text: "Bonjour, quel est le menu aujourd'hui?" },
+    { label: "💰 Combo under ₹150 for 2", text: "Suggest a delicious combo under 150 rupees" },
+    { label: "🍫 Test Sold-Out Brownie Recovery", text: "Can I get the Dark Chocolate Sea Salt Brownie?" },
+    { label: "📶 Guest Wi-Fi password", text: "What is your guest Wi-Fi password and hours?" },
     { label: "🧠 Recall my saved preferences", text: "What are my saved AI preferences?" },
   ];
 
@@ -100,7 +117,7 @@ export default function ChatWidget() {
         if (response.action.type === "ADD_TO_CART") {
           const { item, qty } = response.action.payload;
           addToCart(item, qty);
-          showToast("AI Assistant Updated Cart", `${qty}x ${item.name}`, "success");
+          showToast("AI Concierge Updated Cart", `${qty}x ${item.name}`, "success");
         } else if (response.action.type === "OPEN_RESERVATION_MODAL") {
           setIsReservationModalOpen(true);
         }
@@ -112,7 +129,7 @@ export default function ChatWidget() {
         {
           id: "err-" + Date.now(),
           sender: "bot",
-          text: "I'm having a brief connection pause with the coffee roastery. Feel free to browse our menu or ask again! ☕",
+          text: "I'm having a brief connection pause with the roastery. Feel free to browse our menu or ask again! ☕",
           timestamp: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
         },
       ]);
@@ -126,7 +143,7 @@ export default function ChatWidget() {
       {
         id: "welcome-reset",
         sender: "bot",
-        text: `Fresh cup of coffee poured! How can I assist you at ${cafeInfo.name} today? ☕`,
+        text: `Fresh cup of coffee poured! How can I assist you at ${cafeInfo.name} in any language today? ☕`,
         timestamp: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
       },
     ]);
@@ -148,7 +165,7 @@ export default function ChatWidget() {
             height: "60px",
             borderRadius: "50%",
             background: "linear-gradient(135deg, var(--accent-amber) 0%, var(--accent-caramel) 100%)",
-            border: "2px solid rgba(255, 255, 255, 0.2)",
+            border: "2px solid rgba(255, 255, 255, 0.25)",
             boxShadow: "var(--shadow-amber-strong), 0 8px 24px rgba(0,0,0,0.5)",
             cursor: "pointer",
             display: "flex",
@@ -157,7 +174,7 @@ export default function ChatWidget() {
             color: "#0F0D0B",
             transition: "transform 0.2s ease",
           }}
-          title="Open ShopMate AI Assistant"
+          title="Open Multilingual AI Assistant"
         >
           <Bot size={30} strokeWidth={2.4} />
           {/* Notification ping badge */}
@@ -186,15 +203,15 @@ export default function ChatWidget() {
             right: "24px",
             zIndex: 950,
             width: "calc(100% - 48px)",
-            maxWidth: "440px",
-            height: "580px",
-            maxHeight: "85vh",
+            maxWidth: "460px",
+            height: "620px",
+            maxHeight: "88vh",
             display: "flex",
             flexDirection: "column",
             overflow: "hidden",
             boxShadow: "var(--shadow-lg), var(--shadow-amber)",
             border: "1px solid rgba(245, 158, 11, 0.35)",
-            background: "rgba(18, 15, 12, 0.96)",
+            background: "rgba(18, 15, 12, 0.98)",
           }}
         >
           {/* Chat Header */}
@@ -211,29 +228,40 @@ export default function ChatWidget() {
             <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
               <div
                 style={{
-                  width: "36px",
-                  height: "36px",
+                  width: "38px",
+                  height: "38px",
                   borderRadius: "50%",
                   background: "linear-gradient(135deg, var(--accent-amber), var(--accent-caramel))",
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
                   color: "#0F0D0B",
+                  boxShadow: "var(--shadow-amber)",
                 }}
               >
-                <Bot size={20} />
+                <Bot size={22} />
               </div>
 
               <div>
                 <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
-                  <span style={{ fontWeight: 700, fontSize: "0.95rem" }}>ShopMate AI</span>
-                  <span className="badge badge-amber" style={{ fontSize: "0.65rem", padding: "1px 6px" }}>
-                    Kannada + EN
+                  <span style={{ fontWeight: 800, fontSize: "0.98rem" }}>ShopMate AI</span>
+                  <span
+                    style={{
+                      fontSize: "0.65rem",
+                      padding: "2px 7px",
+                      borderRadius: "var(--radius-full)",
+                      background: "rgba(245, 158, 11, 0.15)",
+                      color: "var(--accent-amber)",
+                      border: "1px solid rgba(245, 158, 11, 0.3)",
+                      fontWeight: 700,
+                    }}
+                  >
+                    All Languages 🌐
                   </span>
                 </div>
                 <div style={{ fontSize: "0.72rem", color: "#34D399", display: "flex", alignItems: "center", gap: "4px" }}>
-                  <span style={{ width: "5px", height: "5px", borderRadius: "50%", background: "#10B981" }} />
-                  {cafeInfo.name} Concierge
+                  <span style={{ width: "6px", height: "6px", borderRadius: "50%", background: "#10B981" }} />
+                  24/7 Multilingual Concierge
                 </div>
               </div>
             </div>
@@ -287,6 +315,43 @@ export default function ChatWidget() {
             </div>
           </div>
 
+          {/* Multilingual Quick Language Selector Ribbon */}
+          <div
+            style={{
+              padding: "6px 12px",
+              background: "rgba(14, 12, 10, 0.95)",
+              borderBottom: "1px solid var(--border-subtle)",
+              display: "flex",
+              alignItems: "center",
+              gap: "6px",
+              overflowX: "auto",
+              whiteSpace: "nowrap",
+            }}
+          >
+            <Languages size={13} color="#F59E0B" style={{ flexShrink: 0, marginRight: "2px" }} />
+            {languageTabs.map((tab) => (
+              <button
+                key={tab.id}
+                type="button"
+                onClick={() => setSelectedLanguage(tab.id)}
+                style={{
+                  background: selectedLanguage === tab.id ? "rgba(245, 158, 11, 0.2)" : "transparent",
+                  border: `1px solid ${selectedLanguage === tab.id ? "var(--accent-amber)" : "rgba(255,255,255,0.08)"}`,
+                  color: selectedLanguage === tab.id ? "var(--accent-amber-light)" : "var(--text-muted)",
+                  borderRadius: "var(--radius-full)",
+                  padding: "2px 8px",
+                  fontSize: "0.68rem",
+                  fontWeight: selectedLanguage === tab.id ? 700 : 500,
+                  cursor: "pointer",
+                  flexShrink: 0,
+                  transition: "var(--transition-fast)",
+                }}
+              >
+                {tab.label}
+              </button>
+            ))}
+          </div>
+
           {/* Messages Scroll Area */}
           <div
             style={{
@@ -311,7 +376,7 @@ export default function ChatWidget() {
                 >
                   <div
                     style={{
-                      maxWidth: "86%",
+                      maxWidth: "88%",
                       padding: "10px 14px",
                       borderRadius: isUser ? "16px 16px 4px 16px" : "16px 16px 16px 4px",
                       background: isUser
@@ -337,13 +402,13 @@ export default function ChatWidget() {
             {isTyping && (
               <div style={{ display: "flex", alignItems: "center", gap: "6px", padding: "8px 12px", background: "var(--bg-surface)", borderRadius: "16px", width: "fit-content" }}>
                 <Bot size={14} color="#F59E0B" />
-                <span style={{ fontSize: "0.78rem", color: "var(--text-secondary)" }}>Brewing response...</span>
+                <span style={{ fontSize: "0.78rem", color: "var(--text-secondary)" }}>Brewing multilingual answer...</span>
               </div>
             )}
             <div ref={messagesEndRef} />
           </div>
 
-          {/* Quick Action Suggestion Chips */}
+          {/* Quick Action Suggestion Chips in Multiple Languages */}
           <div
             style={{
               padding: "8px 14px",
@@ -408,7 +473,7 @@ export default function ChatWidget() {
                 fontSize: "0.88rem",
                 padding: "9px 14px",
               }}
-              placeholder="Ask in English or Kannada (e.g. 'Ondu filter coffee kodi')..."
+              placeholder="Ask in ANY language (Kannada, Hindi, English, Spanish...)"
               value={input}
               onChange={(e) => setInput(e.target.value)}
             />
