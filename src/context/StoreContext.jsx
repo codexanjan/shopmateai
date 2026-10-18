@@ -6,6 +6,8 @@ import {
   INITIAL_ORDERS,
   INITIAL_RESERVATIONS,
   PROMO_CODES,
+  DEFAULT_CUSTOMER_MEMORY,
+  calculateDynamicETA,
 } from "../data/mockData";
 import { soundEngine } from "../services/audioService";
 
@@ -62,6 +64,16 @@ export function StoreProvider({ children }) {
     }
   });
 
+  // 6. Customer Preference Memory (Feature #7)
+  const [customerMemory, setCustomerMemory] = useState(() => {
+    try {
+      const saved = localStorage.getItem("shopmate_customer_memory");
+      return saved ? JSON.parse(saved) : DEFAULT_CUSTOMER_MEMORY;
+    } catch {
+      return DEFAULT_CUSTOMER_MEMORY;
+    }
+  });
+
   // Promo code
   const [appliedPromo, setAppliedPromo] = useState(null);
 
@@ -72,6 +84,9 @@ export function StoreProvider({ children }) {
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [isReservationModalOpen, setIsReservationModalOpen] = useState(false);
   const [activeCustomizingItem, setActiveCustomizingItem] = useState(null);
+  const [isPreferenceModalOpen, setIsPreferenceModalOpen] = useState(false);
+  const [isJudgeSimulationOpen, setIsJudgeSimulationOpen] = useState(false);
+  const [isRecoveryBannerVisible, setIsRecoveryBannerVisible] = useState(false);
   const [soundEnabled, setSoundEnabled] = useState(true);
   const [toasts, setToasts] = useState([]);
 
@@ -111,10 +126,24 @@ export function StoreProvider({ children }) {
   useEffect(() => {
     try {
       localStorage.setItem("shopmate_cart", JSON.stringify(cart));
+      // Show smart order recovery banner if cart has items and is closed
+      if (cart.length > 0 && !isCartOpen) {
+        setIsRecoveryBannerVisible(true);
+      } else {
+        setIsRecoveryBannerVisible(false);
+      }
     } catch (e) {
       console.warn("Storage sync error", e);
     }
-  }, [cart]);
+  }, [cart, isCartOpen]);
+
+  useEffect(() => {
+    try {
+      localStorage.setItem("shopmate_customer_memory", JSON.stringify(customerMemory));
+    } catch (e) {
+      console.warn("Storage sync error", e);
+    }
+  }, [customerMemory]);
 
   // Toast dispatcher
   const showToast = (title, message = "", type = "info") => {
@@ -146,13 +175,11 @@ export function StoreProvider({ children }) {
   // Cart Management
   const addToCart = (item, quantity = 1, customization = null) => {
     setCart((prevCart) => {
-      // Create a unique key based on item id and customization
       const customKey = customization ? JSON.stringify(customization) : "standard";
       const existingIdx = prevCart.findIndex(
         (ci) => ci.id === item.id && (ci.customKey || "standard") === customKey
       );
 
-      // Extra cost for milk alternatives
       let itemPrice = item.price;
       if (customization?.milk && customization.milk.includes("+₹30")) {
         itemPrice += 30;
@@ -200,6 +227,7 @@ export function StoreProvider({ children }) {
   const clearCart = () => {
     setCart([]);
     setAppliedPromo(null);
+    setIsRecoveryBannerVisible(false);
   };
 
   const applyPromo = (codeStr) => {
@@ -238,6 +266,9 @@ export function StoreProvider({ children }) {
   const cartTotal = Math.max(0, cartSubtotal - cartDiscount + cartTax);
   const cartCount = cart.reduce((acc, item) => acc + item.qty, 0);
 
+  // Dynamic ETA (Feature #5)
+  const currentETA = calculateDynamicETA(cart, orders);
+
   // Place Order
   const placeOrder = ({ customerName, customerPhone, orderType, tableNumber, paymentMethod }) => {
     if (cart.length === 0) return null;
@@ -255,6 +286,7 @@ export function StoreProvider({ children }) {
       discount: cartDiscount,
       tax: cartTax,
       total: cartTotal,
+      etaMinutes: currentETA.totalMinutes,
       paymentMethod: paymentMethod || "UPI (Instant Paid)",
     };
 
@@ -267,8 +299,8 @@ export function StoreProvider({ children }) {
     soundEngine.playSuccessOrder();
     try {
       confetti({
-        particleCount: 80,
-        spread: 70,
+        particleCount: 90,
+        spread: 75,
         origin: { y: 0.6 },
         colors: ["#F59E0B", "#D97706", "#10B981", "#FDE68A"],
       });
@@ -276,7 +308,7 @@ export function StoreProvider({ children }) {
       // Fallback
     }
 
-    showToast("Order Placed!", `Order #${newOrder.id} sent to barista!`, "success");
+    showToast("Order Placed!", `Order #${newOrder.id} sent! Est. ready in ${newOrder.etaMinutes} mins.`, "success");
     return newOrder;
   };
 
@@ -381,6 +413,23 @@ export function StoreProvider({ children }) {
     showToast("Settings Saved", "Café details & API settings updated", "success");
   };
 
+  // Customer Preference Memory Handlers (Feature #7)
+  const updateCustomerMemory = (newPreferences) => {
+    setCustomerMemory((prev) => ({
+      ...prev,
+      ...newPreferences,
+      lastSavedAt: new Date().toLocaleDateString(),
+    }));
+    soundEngine.playChime();
+    showToast("AI Memory Updated", "Your preferences have been saved", "success");
+  };
+
+  const clearCustomerMemory = () => {
+    setCustomerMemory(null);
+    soundEngine.playClick();
+    showToast("AI Memory Cleared", "Saved preferences reset", "info");
+  };
+
   return (
     <StoreContext.Provider
       value={{
@@ -412,6 +461,16 @@ export function StoreProvider({ children }) {
         cartTax,
         cartTotal,
         cartCount,
+        currentETA,
+        customerMemory,
+        updateCustomerMemory,
+        clearCustomerMemory,
+        isPreferenceModalOpen,
+        setIsPreferenceModalOpen,
+        isJudgeSimulationOpen,
+        setIsJudgeSimulationOpen,
+        isRecoveryBannerVisible,
+        setIsRecoveryBannerVisible,
         isCartOpen,
         setIsCartOpen,
         isReservationModalOpen,

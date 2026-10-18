@@ -12,6 +12,7 @@ import {
   CreditCard,
   QrCode,
   DollarSign,
+  Clock,
   CheckCircle2,
 } from "lucide-react";
 
@@ -31,6 +32,7 @@ export default function CartDrawer({ setCurrentView }) {
     applyPromo,
     removePromo,
     placeOrder,
+    currentETA,
   } = useStore();
 
   const { currentUser } = useAuth();
@@ -463,6 +465,25 @@ export default function CartDrawer({ setCurrentView }) {
               >
                 <span>Total Payable:</span>
                 <span style={{ color: "var(--accent-amber)" }}>₹{cartTotal}</span>
+              </div>
+
+              {/* Feature #5: Realistic Pickup-Time Estimator */}
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "10px",
+                  padding: "10px 14px",
+                  background: "rgba(245, 158, 11, 0.1)",
+                  border: "1px solid rgba(245, 158, 11, 0.25)",
+                  borderRadius: "var(--radius-md)",
+                  marginTop: "12px",
+                }}
+              >
+                <Clock size={16} color="#F59E0B" style={{ flexShrink: 0 }} />
+                <div style={{ fontSize: "0.8rem", color: "var(--accent-amber-light)" }}>
+                  <strong>Realistic Pickup ETA:</strong> ~{currentETA.totalMinutes} mins ({currentETA.activeTickets} active tickets ahead in kitchen)
+                </div>
               </div>
             </div>
 

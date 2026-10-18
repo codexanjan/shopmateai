@@ -1,4 +1,5 @@
 // Mock Data for Brew & Bliss Artisan Café / ShopMate AI
+// Built for REVHACK | 5-Minute Pitch & Local Commerce SaaS
 
 export const CAFE_INFO = {
   name: "Brew & Bliss Artisan Café",
@@ -24,6 +25,62 @@ export const MENU_CATEGORIES = [
 ];
 
 export const INITIAL_MENU_ITEMS = [
+  {
+    id: "item-13",
+    name: "Classic Chikmagalur Filter Coffee",
+    category: "coffee",
+    price: 80,
+    description: "Traditional 80:20 Arabica-Chicory brass-filter decoction with frothy hot farm milk. Authentic Bengaluru taste.",
+    image: "https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?w=800&auto=format&fit=crop&q=80",
+    dietaryTags: ["Vegetarian", "Budget Friendly"],
+    rating: 4.9,
+    reviewsCount: 380,
+    isAvailable: true,
+    prepTimeMinutes: 2,
+    customizable: true,
+  },
+  {
+    id: "item-15",
+    name: "Cardamom & Ginger Masala Chai",
+    category: "tea",
+    price: 70,
+    description: "Slow-simmered Assam whole leaf tea with freshly crushed green cardamom, ginger roots, and lemon grass.",
+    image: "https://images.unsplash.com/photo-1576092768241-dec231879fc3?w=800&auto=format&fit=crop&q=80",
+    dietaryTags: ["Vegetarian", "Immunity Booster"],
+    rating: 4.8,
+    reviewsCount: 210,
+    isAvailable: true,
+    prepTimeMinutes: 2,
+    customizable: true,
+  },
+  {
+    id: "item-14",
+    name: "Artisan Cinnamon Sugar Toast",
+    category: "bakery",
+    price: 95,
+    description: "Thick slice of brioche toasted with Normandy cultured butter, organic Sri Lankan cinnamon, and raw cane sugar.",
+    image: "https://images.unsplash.com/photo-1484723091739-30a097e8f929?w=800&auto=format&fit=crop&q=80",
+    dietaryTags: ["Vegetarian", "Budget Friendly"],
+    rating: 4.7,
+    reviewsCount: 115,
+    isAvailable: true,
+    prepTimeMinutes: 3,
+    customizable: false,
+  },
+  {
+    id: "item-16",
+    name: "Banana Walnut Tea Cake Slice",
+    category: "bakery",
+    price: 90,
+    description: "Naturally sweetened moist tea cake loaded with ripe Robusta bananas and toasted Kashmiri walnuts.",
+    image: "https://images.unsplash.com/photo-1607958996333-41aef7caefaa?w=800&auto=format&fit=crop&q=80",
+    dietaryTags: ["Vegetarian"],
+    rating: 4.8,
+    reviewsCount: 94,
+    isAvailable: true,
+    prepTimeMinutes: 1,
+    customizable: false,
+  },
   {
     id: "item-1",
     name: "Signature 18-Hour Cold Brew",
@@ -160,7 +217,7 @@ export const INITIAL_MENU_ITEMS = [
     dietaryTags: ["Vegetarian"],
     rating: 4.9,
     reviewsCount: 174,
-    isAvailable: true,
+    isAvailable: false, // Marked Out of Stock to showcase Smart Order Recovery feature!
     prepTimeMinutes: 2,
     customizable: false,
   },
@@ -202,7 +259,7 @@ export const INITIAL_ORDERS = [
     orderType: "dine-in",
     tableNumber: "T-04",
     status: "brewing", // pending | brewing | ready | completed
-    createdAt: new Date(Date.now() - 10 * 60000).toISOString(),
+    createdAt: new Date(Date.now() - 6 * 60000).toISOString(),
     items: [
       {
         id: "item-2",
@@ -232,7 +289,7 @@ export const INITIAL_ORDERS = [
     orderType: "takeaway",
     tableNumber: null,
     status: "ready",
-    createdAt: new Date(Date.now() - 25 * 60000).toISOString(),
+    createdAt: new Date(Date.now() - 18 * 60000).toISOString(),
     items: [
       {
         id: "item-1",
@@ -258,24 +315,24 @@ export const INITIAL_ORDERS = [
     createdAt: new Date(Date.now() - 2 * 60000).toISOString(),
     items: [
       {
-        id: "item-6",
-        name: "Ceremonial Uji Matcha Latte",
-        price: 250,
+        id: "item-13",
+        name: "Classic Chikmagalur Filter Coffee",
+        price: 80,
         qty: 1,
-        customization: { milk: "Almond Milk (+₹30)", sweetness: "Balanced", temp: "Hot" },
+        customization: { milk: "Whole Milk", sweetness: "Standard" },
       },
       {
-        id: "item-11",
-        name: "Truffle Wild Mushroom Sourdough Melt",
-        price: 290,
+        id: "item-14",
+        name: "Artisan Cinnamon Sugar Toast",
+        price: 95,
         qty: 1,
         customization: {},
       },
     ],
-    subtotal: 570,
+    subtotal: 175,
     discount: 0,
-    tax: 28,
-    total: 598,
+    tax: 9,
+    total: 184,
     paymentMethod: "UPI (Paid)",
   },
   {
@@ -285,7 +342,7 @@ export const INITIAL_ORDERS = [
     orderType: "dine-in",
     tableNumber: "T-02",
     status: "completed",
-    createdAt: new Date(Date.now() - 65 * 60000).toISOString(),
+    createdAt: new Date(Date.now() - 45 * 60000).toISOString(),
     items: [
       {
         id: "item-3",
@@ -326,20 +383,125 @@ export const INITIAL_RESERVATIONS = [
     status: "seated",
     specialRequests: "High chair for child.",
   },
-  {
-    id: "RES-503",
-    name: "Ayesha Khan",
-    phone: "+91 97890 55667",
-    date: new Date(Date.now() + 86400000).toISOString().split("T")[0],
-    time: "04:00 PM",
-    guests: 3,
-    area: "Quiet Work Zone (Power outlets)",
-    status: "confirmed",
-    specialRequests: "Work meeting, power socket needed.",
-  },
 ];
 
 export const PROMO_CODES = {
   FIRSTSIP: { discountPct: 15, maxDiscount: 100, label: "15% off first sip" },
   CAFE50: { flatDiscount: 50, minOrder: 300, label: "₹50 flat off orders over ₹300" },
 };
+
+// Kannada & Local Language Mapping for Feature #2
+export const KANNADA_LANGUAGE_MAP = {
+  numbers: {
+    ondu: 1,
+    eradu: 2,
+    mooru: 3,
+    naalku: 4,
+    idu: 5,
+    "1": 1,
+    "2": 2,
+  },
+  items: [
+    { keywords: ["kafi", "kaapi", "filter coffee", "bisi kafi", "coffee"], id: "item-13", name: "Classic Chikmagalur Filter Coffee" },
+    { keywords: ["chai", "chaha", "masala chai", "tea"], id: "item-15", name: "Cardamom & Ginger Masala Chai" },
+    { keywords: ["cold brew", "tanna kafi", "cold coffee"], id: "item-1", name: "Signature 18-Hour Cold Brew" },
+    { keywords: ["croissant", "benne croissant", "pastry"], id: "item-8", name: "Flaky French Butter Croissant" },
+    { keywords: ["toast", "rotti", "bread"], id: "item-14", name: "Artisan Cinnamon Sugar Toast" },
+  ],
+  phrases: [
+    { text: "kodi", meaning: "please give" },
+    { text: "beku", meaning: "needed" },
+    { text: "ideya", meaning: "is it available?" },
+    { text: "oota enide", meaning: "what food is there?" },
+    { text: "sakkare kammi", meaning: "less sugar" },
+  ],
+};
+
+// Dynamic ETA Calculator for Feature #5
+export const calculateDynamicETA = (cartItems = [], queueOrders = []) => {
+  // Base prep time of chosen items (max individual prep time)
+  const basePrep = cartItems.length > 0 
+    ? Math.max(...cartItems.map((i) => i.prepTimeMinutes || 3))
+    : 4;
+
+  // Active kitchen queue delay (2.5 mins per active ticket)
+  const activeTickets = queueOrders.filter((o) => o.status === "pending" || o.status === "brewing").length;
+  const queueDelay = activeTickets * 2.5;
+
+  const totalMinutes = Math.round(basePrep + queueDelay);
+  return {
+    totalMinutes,
+    basePrep,
+    queueDelay: Math.round(queueDelay),
+    activeTickets,
+    summary: `${totalMinutes} mins (${activeTickets} orders ahead in kitchen queue)`,
+  };
+};
+
+// Customer Preference Memory Defaults for Feature #7
+export const DEFAULT_CUSTOMER_MEMORY = {
+  dietaryPreference: "Vegetarian",
+  preferredMilk: "Oat Milk (+₹30)",
+  sweetnessPreference: "50% Sweet (Balanced)",
+  usualBudget: 250,
+  favoriteItem: "Signature 18-Hour Cold Brew",
+  lastSavedAt: new Date().toLocaleDateString(),
+};
+
+// REVHACK Pitch Deck Outline for Feature Demonstration & Judge Questions
+export const REVHACK_PITCH_STAGES = [
+  {
+    step: 1,
+    time: "0:00–0:30",
+    title: "1. The Hook & Problem",
+    subtitle: "Busy cafés lose 35% of orders during peak morning rushes",
+    description: "Owners are pulling espresso shots and baking. Customer calls and WhatsApp inquiries go unanswered.",
+    actionLabel: "View Problem Breakdown",
+    targetTab: "landing",
+  },
+  {
+    step: 2,
+    time: "0:30–1:05",
+    title: "2. Local-Language Ordering (Kannada + English)",
+    subtitle: "Kannada phrase: 'Ondu filter coffee matthe toast kodi'",
+    description: "Natural language mapping converts colloquial local speech into structured verified database items.",
+    actionLabel: "Test Kannada Ordering",
+    targetTab: "chat_kannada",
+  },
+  {
+    step: 3,
+    time: "1:05–2:00",
+    title: "3. Smart Budget Meal Planner",
+    subtitle: "Query: 'What vegetarian food can I get for under ₹150?'",
+    description: "AI calculates exact menu combinations using verified prices (Filter Coffee ₹80 + Chai ₹70 = ₹150).",
+    actionLabel: "Test Budget Planner",
+    targetTab: "chat_budget",
+  },
+  {
+    step: 4,
+    time: "2:00–2:40",
+    title: "4. Smart Order Recovery",
+    subtitle: "Brownie is Out-of-Stock → AI recommends Fresh Croissant",
+    description: "Recovers potential lost sales instead of dead ends. Restores abandoned carts with 1 click.",
+    actionLabel: "Test Order Recovery",
+    targetTab: "recovery",
+  },
+  {
+    step: 5,
+    time: "2:40–3:20",
+    title: "5. Real-Time Kitchen Kanban & Realistic ETA",
+    subtitle: "Order placed → Acoustic bell dings in kitchen",
+    description: "Dynamic pickup time calculated based on item prep + active tickets queue. Barista advances with 1 click.",
+    actionLabel: "Open Kitchen Kanban",
+    targetTab: "admin",
+  },
+  {
+    step: 6,
+    time: "3:20–4:00",
+    title: "6. Café Owner Intelligence & ₹499/mo Model",
+    subtitle: "Proactive decision support & ₹18,000 commission savings",
+    description: "Proactive alerts on peak morning rushes and ingredient restocks. Transparent ₹499/month flat SaaS fee.",
+    actionLabel: "View ROI Calculator",
+    targetTab: "pricing",
+  },
+];

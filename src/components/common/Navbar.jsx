@@ -13,6 +13,7 @@ import {
   UtensilsCrossed,
   Clock,
   Sparkles,
+  Brain,
 } from "lucide-react";
 
 export default function Navbar({ currentView, setCurrentView }) {
@@ -22,6 +23,9 @@ export default function Navbar({ currentView, setCurrentView }) {
     cartTotal,
     setIsCartOpen,
     setIsReservationModalOpen,
+    setIsPreferenceModalOpen,
+    setIsJudgeSimulationOpen,
+    customerMemory,
     soundEnabled,
     toggleSound,
     activeTrackingOrderId,
@@ -39,7 +43,7 @@ export default function Navbar({ currentView, setCurrentView }) {
         borderLeft: "none",
         borderRight: "none",
         borderBottom: "1px solid var(--border-subtle)",
-        background: "rgba(18, 15, 12, 0.88)",
+        background: "rgba(18, 15, 12, 0.92)",
         backdropFilter: "blur(20px)",
       }}
     >
@@ -127,6 +131,23 @@ export default function Navbar({ currentView, setCurrentView }) {
           }}
           className="hide-mobile"
         >
+          {/* 5-Min Judge Live Demo Button */}
+          <button
+            onClick={() => setIsJudgeSimulationOpen(true)}
+            className="btn btn-sm animate-pulse-glow"
+            style={{
+              background: "linear-gradient(135deg, rgba(245, 158, 11, 0.25) 0%, rgba(217, 119, 6, 0.35) 100%)",
+              border: "1px solid var(--accent-amber)",
+              color: "var(--accent-amber-light)",
+              fontWeight: 700,
+              fontSize: "0.78rem",
+              padding: "6px 12px",
+            }}
+          >
+            <Sparkles size={14} color="#F59E0B" />
+            <span>REVHACK Judge Demo</span>
+          </button>
+
           <button
             onClick={() => setCurrentView("menu")}
             className={`btn btn-ghost btn-sm ${currentView === "menu" ? "text-amber" : ""}`}
@@ -156,7 +177,7 @@ export default function Navbar({ currentView, setCurrentView }) {
             }}
           >
             <Clock size={16} />
-            <span>Live Brewing #{activeTrackingOrderId.split("-")[1] || "Track"}</span>
+            <span>Brewing #{activeTrackingOrderId.split("-")[1] || "Track"}</span>
           </button>
 
           <button
@@ -173,8 +194,31 @@ export default function Navbar({ currentView, setCurrentView }) {
           </button>
         </nav>
 
-        {/* Right Action Tools: Role Switcher, Sound, Cart, Auth */}
+        {/* Right Action Tools: AI Memory, Role Switcher, Sound, Cart, Auth */}
         <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+          
+          {/* AI Memory Badge (Feature #7) */}
+          <button
+            onClick={() => setIsPreferenceModalOpen(true)}
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "5px",
+              background: "rgba(139, 92, 246, 0.12)",
+              border: "1px solid rgba(139, 92, 246, 0.35)",
+              borderRadius: "var(--radius-full)",
+              padding: "5px 10px",
+              fontSize: "0.75rem",
+              color: "#C4B5FD",
+              cursor: "pointer",
+              fontWeight: 600,
+            }}
+            title="View & Edit Saved AI Preference Memory"
+          >
+            <Brain size={13} color="#A78BFA" />
+            <span>Memory</span>
+          </button>
+
           {/* Quick Role Toggle Pill */}
           <div
             style={{
@@ -205,7 +249,7 @@ export default function Navbar({ currentView, setCurrentView }) {
                 cursor: "pointer",
                 transition: "var(--transition-fast)",
               }}
-              title="Switch to Customer Experience (Alex)"
+              title="Customer Mode (Alex)"
             >
               <User size={13} />
               <span>Customer</span>
@@ -230,7 +274,7 @@ export default function Navbar({ currentView, setCurrentView }) {
                 cursor: "pointer",
                 transition: "var(--transition-fast)",
               }}
-              title="Switch to Kitchen Kanban & Owner Mode (Viraj)"
+              title="Kitchen Kanban & Owner Mode (Viraj)"
             >
               <ShieldCheck size={13} />
               <span>Owner</span>
@@ -247,7 +291,7 @@ export default function Navbar({ currentView, setCurrentView }) {
             {soundEnabled ? <Volume2 size={18} /> : <VolumeX size={18} />}
           </button>
 
-          {/* Slide-out Cart Trigger Button */}
+          {/* Cart Trigger Button */}
           <button
             onClick={() => setIsCartOpen(true)}
             className="btn btn-primary"
@@ -276,7 +320,7 @@ export default function Navbar({ currentView, setCurrentView }) {
             )}
           </button>
 
-          {/* User Profile / Auth Modal trigger */}
+          {/* User Profile */}
           <button
             onClick={() => setIsAuthModalOpen(true)}
             style={{

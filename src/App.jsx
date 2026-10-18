@@ -7,6 +7,7 @@ import Navbar from "./components/common/Navbar";
 import Footer from "./components/common/Footer";
 import AuthModal from "./components/common/AuthModal";
 import Toast from "./components/common/Toast";
+import JudgePitchSimulator from "./components/common/JudgePitchSimulator";
 
 // Landing Components
 import HeroSection from "./components/landing/HeroSection";
@@ -20,6 +21,8 @@ import ItemModal from "./components/customer/ItemModal";
 import CartDrawer from "./components/customer/CartDrawer";
 import OrderTracker from "./components/customer/OrderTracker";
 import ReservationModal from "./components/customer/ReservationModal";
+import PreferenceMemoryModal from "./components/customer/PreferenceMemoryModal";
+import OrderRecoveryBanner from "./components/customer/OrderRecoveryBanner";
 
 // Chatbot
 import ChatWidget from "./components/chatbot/ChatWidget";
@@ -62,13 +65,16 @@ function MainApp() {
       {/* Footer */}
       <Footer setCurrentView={setCurrentView} />
 
-      {/* Global Interactive Overlays */}
+      {/* Global Interactive Overlays & 7 Killer Features */}
       <ItemModal />
       <CartDrawer setCurrentView={setCurrentView} />
       <ReservationModal />
       <AuthModal />
       <Toast />
       <ChatWidget />
+      <JudgePitchSimulator setCurrentView={setCurrentView} />
+      <PreferenceMemoryModal />
+      <OrderRecoveryBanner />
     </div>
   );
 }

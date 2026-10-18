@@ -13,12 +13,14 @@ import {
   RotateCcw,
   Volume2,
   VolumeX,
+  Languages,
 } from "lucide-react";
 
 export default function ChatWidget() {
   const {
     cafeInfo,
     menuItems,
+    customerMemory,
     addToCart,
     setIsReservationModalOpen,
     soundEnabled,
@@ -31,7 +33,7 @@ export default function ChatWidget() {
     {
       id: "welcome",
       sender: "bot",
-      text: `Hello! I'm **ShopMate AI**, your concierge at ${cafeInfo.name} ☕✨\n\nAsk me for cold brew recommendations, vegan pastries, Wi-Fi passwords, or tell me to add drinks directly to your cart!`,
+      text: `Namaskara! I'm **ShopMate AI**, your concierge at ${cafeInfo.name} ☕✨\n\nI can converse in **English or Kannada**, suggest food under a budget, handle customizations, and answer any judge questions regarding REVHACK!`,
       timestamp: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
     },
   ]);
@@ -40,11 +42,13 @@ export default function ChatWidget() {
   const messagesEndRef = useRef(null);
 
   const quickChips = [
-    { label: "☕ Recommend sweet iced coffee", text: "What sweet iced coffee do you recommend?" },
-    { label: "🥐 Vegan food options", text: "What vegan options and pastries do you have?" },
-    { label: "📶 Wi-Fi password", text: "What is your guest Wi-Fi password and hours?" },
+    { label: "🙏 Ondu filter coffee kodi (Kannada)", text: "Ondu filter coffee kodi" },
+    { label: "💰 Food under ₹150 for 2", text: "What can I order for less than 150 rupees?" },
+    { label: "🍫 Order Brownie (Test Sold Out Recovery)", text: "Can I get the Dark Chocolate Sea Salt Brownie?" },
+    { label: "🏆 REVHACK pitch summary for judges", text: "Summarize the REVHACK 5-minute pitch and business model" },
+    { label: "📶 Guest Wi-Fi & Hours", text: "What is your guest Wi-Fi password and hours?" },
     { label: "🛒 Add 2 Cold Brews to cart", text: "Add 2 Signature 18-Hour Cold Brews to my cart" },
-    { label: "📅 Reserve table for 2", text: "I would like to reserve a table for 2" },
+    { label: "🧠 Recall my saved preferences", text: "What are my saved AI preferences?" },
   ];
 
   const scrollToBottom = () => {
@@ -79,6 +83,7 @@ export default function ChatWidget() {
         apiKey: cafeInfo.geminiApiKey,
         cafeInfo,
         menuItems,
+        customerMemory,
       });
 
       const botMsg = {
@@ -181,8 +186,8 @@ export default function ChatWidget() {
             right: "24px",
             zIndex: 950,
             width: "calc(100% - 48px)",
-            maxWidth: "420px",
-            height: "560px",
+            maxWidth: "440px",
+            height: "580px",
             maxHeight: "85vh",
             display: "flex",
             flexDirection: "column",
@@ -223,7 +228,7 @@ export default function ChatWidget() {
                 <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
                   <span style={{ fontWeight: 700, fontSize: "0.95rem" }}>ShopMate AI</span>
                   <span className="badge badge-amber" style={{ fontSize: "0.65rem", padding: "1px 6px" }}>
-                    Gemini Flash
+                    Kannada + EN
                   </span>
                 </div>
                 <div style={{ fontSize: "0.72rem", color: "#34D399", display: "flex", alignItems: "center", gap: "4px" }}>
@@ -306,7 +311,7 @@ export default function ChatWidget() {
                 >
                   <div
                     style={{
-                      maxWidth: "84%",
+                      maxWidth: "86%",
                       padding: "10px 14px",
                       borderRadius: isUser ? "16px 16px 4px 16px" : "16px 16px 16px 4px",
                       background: isUser
@@ -403,7 +408,7 @@ export default function ChatWidget() {
                 fontSize: "0.88rem",
                 padding: "9px 14px",
               }}
-              placeholder="Ask menu, hours, or say 'Add 2 cold brews'..."
+              placeholder="Ask in English or Kannada (e.g. 'Ondu filter coffee kodi')..."
               value={input}
               onChange={(e) => setInput(e.target.value)}
             />
