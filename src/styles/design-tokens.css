@@ -1,0 +1,69 @@
+/* ShopMate AI Design Tokens: Velvet Espresso & Amber Crema */
+:root {
+  /* Colors */
+  --bg-primary: #0F0D0B;
+  --bg-secondary: #171310;
+  --bg-surface: #1E1914;
+  --bg-surface-elevated: #28211A;
+  --bg-surface-hover: #332A22;
+  --bg-glass: rgba(23, 19, 16, 0.85);
+  --bg-glass-card: rgba(30, 25, 20, 0.65);
+  --bg-modal-backdrop: rgba(10, 8, 6, 0.75);
+
+  /* Accents */
+  --accent-amber: #F59E0B;
+  --accent-amber-light: #FDE68A;
+  --accent-amber-dark: #D97706;
+  --accent-amber-glow: rgba(245, 158, 11, 0.25);
+  --accent-caramel: #B45309;
+  
+  /* Text */
+  --text-primary: #FBF7F0;
+  --text-secondary: #D4C5B5;
+  --text-muted: #8E7F70;
+  --text-accent: #FBBF24;
+
+  /* Borders */
+  --border-subtle: rgba(245, 158, 11, 0.12);
+  --border-medium: rgba(245, 158, 11, 0.25);
+  --border-strong: rgba(245, 158, 11, 0.45);
+
+  /* Status Colors */
+  --status-success: #10B981;
+  --status-success-bg: rgba(16, 185, 129, 0.15);
+  --status-warning: #F59E0B;
+  --status-warning-bg: rgba(245, 158, 11, 0.15);
+  --status-info: #3B82F6;
+  --status-info-bg: rgba(59, 130, 246, 0.15);
+  --status-purple: #8B5CF6;
+  --status-purple-bg: rgba(139, 92, 246, 0.15);
+  --status-danger: #EF4444;
+  --status-danger-bg: rgba(239, 68, 68, 0.15);
+
+  /* Typography */
+  --font-display: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-body: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+
+  /* Radii */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --radius-xl: 22px;
+  --radius-full: 9999px;
+
+  /* Shadows */
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 6px 20px rgba(0, 0, 0, 0.5);
+  --shadow-lg: 0 12px 36px rgba(0, 0, 0, 0.7);
+  --shadow-amber: 0 0 25px rgba(245, 158, 11, 0.22);
+  --shadow-amber-strong: 0 0 35px rgba(245, 158, 11, 0.4);
+
+  /* Transitions */
+  --transition-fast: 0.15s ease;
+  --transition-normal: 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-slow: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* Layout */
+  --navbar-height: 72px;
+  --container-max-width: 1280px;
+}

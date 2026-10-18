@@ -1,0 +1,135 @@
+/* Global Styles & Design System */
+@import './styles/design-tokens.css';
+@import './styles/animations.css';
+@import './styles/components.css';
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.6;
+  min-height: 100vh;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+/* Headings */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1.25;
+}
+
+h1 {
+  font-size: clamp(2.2rem, 5vw, 3.8rem);
+  letter-spacing: -0.03em;
+}
+
+h2 {
+  font-size: clamp(1.8rem, 3.5vw, 2.5rem);
+  letter-spacing: -0.02em;
+}
+
+h3 {
+  font-size: 1.4rem;
+  letter-spacing: -0.01em;
+}
+
+p {
+  color: var(--text-secondary);
+}
+
+a {
+  color: var(--accent-amber);
+  text-decoration: none;
+  transition: var(--transition-fast);
+}
+
+a:hover {
+  color: var(--accent-amber-light);
+}
+
+/* Custom Scrollbars */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--bg-surface-elevated);
+  border-radius: var(--radius-full);
+  border: 2px solid var(--bg-secondary);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-amber-dark);
+}
+
+/* Layout Utilities */
+.container {
+  width: 100%;
+  max-width: var(--container-max-width);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.section-padding {
+  padding-top: 80px;
+  padding-bottom: 80px;
+}
+
+@media (max-width: 768px) {
+  .section-padding {
+    padding-top: 50px;
+    padding-bottom: 50px;
+  }
+}
+
+.text-amber {
+  color: var(--accent-amber);
+}
+
+.text-gradient-amber {
+  background: linear-gradient(135deg, #FDE68A 0%, #F59E0B 50%, #D97706 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.glow-bg {
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(245, 158, 11, 0.15) 0%, rgba(18, 16, 14, 0) 70%);
+  pointer-events: none;
+  filter: blur(60px);
+  z-index: 0;
+}
