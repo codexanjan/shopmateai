@@ -33,7 +33,7 @@ export default function HeroSection({ setCurrentView }) {
               }}
             >
               <Sparkles size={15} color="#F59E0B" />
-              <span>Idea #10 · Local Commerce AI Assistant</span>
+              <span>Bengaluru's Premier Artisan Micro-Roastery & 24/7 AI Concierge</span>
             </div>
 
             {/* Main Headline */}

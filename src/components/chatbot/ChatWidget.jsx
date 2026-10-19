@@ -9,12 +9,14 @@ import {
   User,
   Sparkles,
   ShoppingBag,
-  CalendarCheck,
   RotateCcw,
   Volume2,
   VolumeX,
-  Globe,
+  Mic,
+  MicOff,
   Languages,
+  DollarSign,
+  Radio,
 } from "lucide-react";
 
 export default function ChatWidget() {
@@ -30,12 +32,17 @@ export default function ChatWidget() {
   } = useStore();
 
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedLanguage, setSelectedLanguage] = useState("auto"); // auto, kn, hi, ta, te, es, fr, de, en
+  const [selectedLanguage, setSelectedLanguage] = useState("auto");
+  const [autoSpeak, setAutoSpeak] = useState(true);
+  const [isSpeaking, setIsSpeaking] = useState(false);
+  const [isListening, setIsListening] = useState(false);
+  const [speakingMessageId, setSpeakingMessageId] = useState(null);
+
   const [messages, setMessages] = useState([
     {
       id: "welcome",
       sender: "bot",
-      text: `Hello! Namaskara! नमस्ते! I'm **ShopMate AI**, your multilingual concierge at ${cafeInfo.name} ☕✨\n\nI understand and answer in **ALL languages** — English, Kannada (ಕನ್ನಡ), Hindi (हिंदी), Tamil (தமிழ்), Telugu (తెలుగు), Spanish (Español), French (Français), and more!\n\nHow may I brew your day today?`,
+      text: `Hello! Namaskara! नमस्ते! I'm **ShopMate AI**, your voice & multilingual concierge at ${cafeInfo.name} ☕✨\n\nI speak and understand **ALL languages** — English, Kannada (ಕನ್ನಡ), Hindi (हिंदी), Tamil (தமிழ்), Telugu (తెలుగు), Spanish, and more!\n\nI can also explain our **₹499/mo flat SaaS revenue model**, suggest food under a budget, or customize your brew. Tap 🔊 to listen to my voice!`,
       timestamp: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
     },
   ]);
@@ -54,17 +61,16 @@ export default function ChatWidget() {
     { id: "fr", label: "Français" },
   ];
 
-  // Dynamic chips based on chosen language
   const quickChips = [
+    { label: "💰 How does your ₹499/mo revenue model work?", text: "How does your ₹499/mo revenue model work and how much does a café save vs Swiggy/Zomato?" },
     { label: "ಕನ್ನಡ: Ondu filter coffee kodi", text: "Ondu filter coffee kodi" },
     { label: "हिंदी: Do masala chai chahiye", text: "Do masala chai chahiye" },
+    { label: "🍫 Order Brownie (Test Sold Out Recovery)", text: "Can I get the Dark Chocolate Sea Salt Brownie?" },
+    { label: "💰 Combo under ₹150 for 2", text: "Suggest a delicious combo under 150 rupees" },
     { label: "தமிழ்: Oru filter coffee kudunga", text: "Oru filter coffee kudunga" },
     { label: "తెలుగు: Oka croissant ivvandi", text: "Oka croissant ivvandi" },
     { label: "Español: Un café por favor", text: "Hola, un café por favor" },
-    { label: "Français: Quel est le menu?", text: "Bonjour, quel est le menu aujourd'hui?" },
-    { label: "💰 Combo under ₹150 for 2", text: "Suggest a delicious combo under 150 rupees" },
-    { label: "🍫 Test Sold-Out Brownie Recovery", text: "Can I get the Dark Chocolate Sea Salt Brownie?" },
-    { label: "📶 Guest Wi-Fi password", text: "What is your guest Wi-Fi password and hours?" },
+    { label: "📶 Guest Wi-Fi & Hours", text: "What is your guest Wi-Fi password and hours?" },
     { label: "🧠 Recall my saved preferences", text: "What are my saved AI preferences?" },
   ];
 
@@ -77,6 +83,129 @@ export default function ChatWidget() {
       scrollToBottom();
     }
   }, [messages, isOpen, isTyping]);
+
+  // Clean Markdown & Emojis for Natural Web Speech
+  const cleanForSpeech = (raw) => {
+    return raw
+      .replace(/\[ACTION:[^\]]+\]/gi, "")
+      .replace(/\*\*([^*]+)\*\*/g, "$1")
+      .replace(/[*_#`~]/g, "")
+      .replace(/•/g, "")
+      .replace(/₹(\d+)/g, "$1 rupees")
+      .replace(/[\u{1F600}-\u{1F64F}\u{1F300}-\u{1F5FF}\u{1F680}-\u{1F6FF}\u{1F700}-\u{1F77F}\u{1F780}-\u{1F7FF}\u{1F800}-\u{1F8FF}\u{1F900}-\u{1F9FF}\u{1FA00}-\u{1FA6F}\u{1FA70}-\u{1FAFF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}]/gu, "")
+      .trim();
+  };
+
+  // Text-To-Speech (Bot Voice)
+  const speakText = (textToSpeak, msgId = null) => {
+    if (!("speechSynthesis" in window)) return;
+    window.speechSynthesis.cancel();
+
+    if (speakingMessageId === msgId && isSpeaking) {
+      setIsSpeaking(false);
+      setSpeakingMessageId(null);
+      return;
+    }
+
+    const clean = cleanForSpeech(textToSpeak);
+    if (!clean) return;
+
+    const utterance = new SpeechSynthesisUtterance(clean);
+    utterance.rate = 1.0;
+    utterance.pitch = 1.05;
+
+    // Language Voice Matching
+    if (/[\u0C80-\u0CFF]/.test(clean)) {
+      utterance.lang = "kn-IN";
+    } else if (/[\u0900-\u097F]/.test(clean)) {
+      utterance.lang = "hi-IN";
+    } else if (/[\u0B80-\u0BFF]/.test(clean)) {
+      utterance.lang = "ta-IN";
+    } else if (/[\u0C00-\u0C7F]/.test(clean)) {
+      utterance.lang = "te-IN";
+    } else if (selectedLanguage === "es" || /hola|café|gracias/i.test(clean)) {
+      utterance.lang = "es-ES";
+    } else if (selectedLanguage === "fr" || /bonjour|merci|croissant/i.test(clean)) {
+      utterance.lang = "fr-FR";
+    } else {
+      utterance.lang = "en-IN";
+    }
+
+    utterance.onstart = () => {
+      setIsSpeaking(true);
+      setSpeakingMessageId(msgId);
+    };
+
+    utterance.onend = () => {
+      setIsSpeaking(false);
+      setSpeakingMessageId(null);
+    };
+
+    utterance.onerror = () => {
+      setIsSpeaking(false);
+      setSpeakingMessageId(null);
+    };
+
+    window.speechSynthesis.speak(utterance);
+  };
+
+  const stopSpeaking = () => {
+    if ("speechSynthesis" in window) {
+      window.speechSynthesis.cancel();
+      setIsSpeaking(false);
+      setSpeakingMessageId(null);
+    }
+  };
+
+  // Voice Input (Speech-To-Text / Microphone)
+  const toggleVoiceRecognition = () => {
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (!SpeechRecognition) {
+      showToast("Voice Input", "Speech recognition is not supported in this browser.", "info");
+      return;
+    }
+
+    if (isListening) {
+      setIsListening(false);
+      return;
+    }
+
+    try {
+      const recognition = new SpeechRecognition();
+      recognition.lang =
+        selectedLanguage === "hi"
+          ? "hi-IN"
+          : selectedLanguage === "kn"
+          ? "kn-IN"
+          : selectedLanguage === "es"
+          ? "es-ES"
+          : "en-IN";
+      recognition.interimResults = false;
+      recognition.maxAlternatives = 1;
+
+      setIsListening(true);
+      showToast("Listening...", "Speak your order or question now", "info");
+
+      recognition.onresult = (event) => {
+        const spokenText = event.results[0][0].transcript;
+        setInput(spokenText);
+        setIsListening(false);
+        handleSend(spokenText);
+      };
+
+      recognition.onerror = () => {
+        setIsListening(false);
+      };
+
+      recognition.onend = () => {
+        setIsListening(false);
+      };
+
+      recognition.start();
+    } catch (e) {
+      setIsListening(false);
+    }
+  };
 
   const handleSend = async (messageText) => {
     const textToSend = messageText || input;
@@ -103,14 +232,20 @@ export default function ChatWidget() {
         customerMemory,
       });
 
+      const botMsgId = "bot-" + Date.now();
       const botMsg = {
-        id: "bot-" + Date.now(),
+        id: botMsgId,
         sender: "bot",
         text: response.text,
         timestamp: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
       };
 
       setMessages((prev) => [...prev, botMsg]);
+
+      // If auto-speak is enabled, speak aloud
+      if (autoSpeak) {
+        speakText(response.text, botMsgId);
+      }
 
       // Execute AI action if extracted
       if (response.action) {
@@ -129,7 +264,7 @@ export default function ChatWidget() {
         {
           id: "err-" + Date.now(),
           sender: "bot",
-          text: "I'm having a brief connection pause with the roastery. Feel free to browse our menu or ask again! ☕",
+          text: "I had a momentary pause in connection. Please ask again or browse our menu! ☕",
           timestamp: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
         },
       ]);
@@ -139,11 +274,12 @@ export default function ChatWidget() {
   };
 
   const handleClear = () => {
+    stopSpeaking();
     setMessages([
       {
         id: "welcome-reset",
         sender: "bot",
-        text: `Fresh cup of coffee poured! How can I assist you at ${cafeInfo.name} in any language today? ☕`,
+        text: `Fresh cup of coffee poured! How can I assist you at ${cafeInfo.name} today? Ask in any language or ask how our ₹499/mo revenue model works! ☕`,
         timestamp: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
       },
     ]);
@@ -151,22 +287,22 @@ export default function ChatWidget() {
 
   return (
     <>
-      {/* Floating Launcher Button */}
+      {/* Floating Launcher Button (Fully visible, never cut off) */}
       {!isOpen && (
         <button
           onClick={() => setIsOpen(true)}
           className="animate-pulse-glow"
           style={{
             position: "fixed",
-            bottom: "24px",
-            right: "24px",
+            bottom: "28px",
+            right: "28px",
             zIndex: 950,
             width: "60px",
             height: "60px",
             borderRadius: "50%",
             background: "linear-gradient(135deg, var(--accent-amber) 0%, var(--accent-caramel) 100%)",
-            border: "2px solid rgba(255, 255, 255, 0.25)",
-            boxShadow: "var(--shadow-amber-strong), 0 8px 24px rgba(0,0,0,0.5)",
+            border: "2px solid rgba(255, 255, 255, 0.3)",
+            boxShadow: "var(--shadow-amber-strong), 0 8px 24px rgba(0,0,0,0.6)",
             cursor: "pointer",
             display: "flex",
             alignItems: "center",
@@ -174,9 +310,9 @@ export default function ChatWidget() {
             color: "#0F0D0B",
             transition: "transform 0.2s ease",
           }}
-          title="Open Multilingual AI Assistant"
+          title="Open Voice & Multilingual AI Concierge"
         >
-          <Bot size={30} strokeWidth={2.4} />
+          <Bot size={28} strokeWidth={2.4} />
           {/* Notification ping badge */}
           <span
             style={{
@@ -193,7 +329,7 @@ export default function ChatWidget() {
         </button>
       )}
 
-      {/* Expanded Chat Modal */}
+      {/* Expanded Voice Chat Modal */}
       {isOpen && (
         <div
           className="glass-panel animate-scale-up"
@@ -210,7 +346,7 @@ export default function ChatWidget() {
             flexDirection: "column",
             overflow: "hidden",
             boxShadow: "var(--shadow-lg), var(--shadow-amber)",
-            border: "1px solid rgba(245, 158, 11, 0.35)",
+            border: "1px solid rgba(245, 158, 11, 0.4)",
             background: "rgba(18, 15, 12, 0.98)",
           }}
         >
@@ -244,29 +380,58 @@ export default function ChatWidget() {
 
               <div>
                 <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
-                  <span style={{ fontWeight: 800, fontSize: "0.98rem" }}>ShopMate AI</span>
-                  <span
-                    style={{
-                      fontSize: "0.65rem",
-                      padding: "2px 7px",
-                      borderRadius: "var(--radius-full)",
-                      background: "rgba(245, 158, 11, 0.15)",
-                      color: "var(--accent-amber)",
-                      border: "1px solid rgba(245, 158, 11, 0.3)",
-                      fontWeight: 700,
-                    }}
-                  >
-                    All Languages 🌐
-                  </span>
+                  <span style={{ fontWeight: 800, fontSize: "0.98rem" }}>ShopMate Voice AI</span>
+                  {isSpeaking && (
+                    <span
+                      style={{
+                        display: "inline-flex",
+                        alignItems: "center",
+                        gap: "3px",
+                        fontSize: "0.65rem",
+                        padding: "1px 6px",
+                        borderRadius: "var(--radius-full)",
+                        background: "rgba(245, 158, 11, 0.2)",
+                        color: "var(--accent-amber-light)",
+                        fontWeight: 700,
+                      }}
+                    >
+                      <Radio size={10} className="animate-spin" /> Speaking...
+                    </span>
+                  )}
                 </div>
                 <div style={{ fontSize: "0.72rem", color: "#34D399", display: "flex", alignItems: "center", gap: "4px" }}>
                   <span style={{ width: "6px", height: "6px", borderRadius: "50%", background: "#10B981" }} />
-                  24/7 Multilingual Concierge
+                  Speaks & Understands All Languages
                 </div>
               </div>
             </div>
 
+            {/* Header Controls: Auto-voice toggle, Restart, Close */}
             <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+              <button
+                onClick={() => {
+                  if (autoSpeak) stopSpeaking();
+                  setAutoSpeak(!autoSpeak);
+                }}
+                style={{
+                  background: autoSpeak ? "rgba(245, 158, 11, 0.2)" : "rgba(255,255,255,0.06)",
+                  border: `1px solid ${autoSpeak ? "var(--accent-amber)" : "var(--border-subtle)"}`,
+                  color: autoSpeak ? "var(--accent-amber-light)" : "var(--text-muted)",
+                  borderRadius: "var(--radius-full)",
+                  padding: "4px 8px",
+                  fontSize: "0.72rem",
+                  fontWeight: 600,
+                  cursor: "pointer",
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "4px",
+                }}
+                title={autoSpeak ? "Voice Speech Enabled" : "Voice Speech Muted"}
+              >
+                {autoSpeak ? <Volume2 size={14} color="#F59E0B" /> : <VolumeX size={14} />}
+                <span>Voice</span>
+              </button>
+
               <button
                 onClick={handleClear}
                 style={{
@@ -278,25 +443,14 @@ export default function ChatWidget() {
                 }}
                 title="Restart Chat"
               >
-                <RotateCcw size={16} />
+                <RotateCcw size={15} />
               </button>
 
               <button
-                onClick={toggleSound}
-                style={{
-                  background: "transparent",
-                  border: "none",
-                  color: soundEnabled ? "var(--accent-amber)" : "var(--text-muted)",
-                  cursor: "pointer",
-                  padding: "4px",
+                onClick={() => {
+                  stopSpeaking();
+                  setIsOpen(false);
                 }}
-                title={soundEnabled ? "Mute audio" : "Enable audio"}
-              >
-                {soundEnabled ? <Volume2 size={16} /> : <VolumeX size={16} />}
-              </button>
-
-              <button
-                onClick={() => setIsOpen(false)}
                 style={{
                   background: "rgba(255,255,255,0.06)",
                   border: "1px solid var(--border-subtle)",
@@ -360,11 +514,13 @@ export default function ChatWidget() {
               padding: "16px",
               display: "flex",
               flexDirection: "column",
-              gap: "12px",
+              gap: "14px",
             }}
           >
             {messages.map((msg) => {
               const isUser = msg.sender === "user";
+              const isThisSpeaking = speakingMessageId === msg.id && isSpeaking;
+
               return (
                 <div
                   key={msg.id}
@@ -377,24 +533,68 @@ export default function ChatWidget() {
                   <div
                     style={{
                       maxWidth: "88%",
-                      padding: "10px 14px",
+                      padding: "12px 14px",
                       borderRadius: isUser ? "16px 16px 4px 16px" : "16px 16px 16px 4px",
                       background: isUser
                         ? "linear-gradient(135deg, var(--accent-amber) 0%, var(--accent-caramel) 100%)"
                         : "var(--bg-surface)",
                       color: isUser ? "#0F0D0B" : "var(--text-primary)",
                       fontWeight: isUser ? 600 : 400,
-                      border: isUser ? "none" : "1px solid var(--border-subtle)",
+                      border: isUser
+                        ? "none"
+                        : isThisSpeaking
+                        ? "1px solid var(--accent-amber)"
+                        : "1px solid var(--border-subtle)",
                       fontSize: "0.88rem",
                       lineHeight: 1.5,
                       whiteSpace: "pre-wrap",
+                      boxShadow: isThisSpeaking ? "0 0 12px rgba(245, 158, 11, 0.3)" : "none",
                     }}
                   >
                     {msg.text}
+
+                    {/* Bot Voice Speaker Button inside message */}
+                    {!isUser && (
+                      <div
+                        style={{
+                          marginTop: "8px",
+                          paddingTop: "6px",
+                          borderTop: "1px solid rgba(255,255,255,0.08)",
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "space-between",
+                        }}
+                      >
+                        <button
+                          type="button"
+                          onClick={() => speakText(msg.text, msg.id)}
+                          style={{
+                            background: isThisSpeaking ? "rgba(245, 158, 11, 0.25)" : "rgba(255,255,255,0.06)",
+                            border: `1px solid ${isThisSpeaking ? "var(--accent-amber)" : "var(--border-subtle)"}`,
+                            color: isThisSpeaking ? "var(--accent-amber-light)" : "var(--text-secondary)",
+                            borderRadius: "var(--radius-full)",
+                            padding: "3px 8px",
+                            fontSize: "0.72rem",
+                            cursor: "pointer",
+                            display: "inline-flex",
+                            alignItems: "center",
+                            gap: "4px",
+                            fontWeight: 600,
+                          }}
+                        >
+                          <Volume2 size={13} color={isThisSpeaking ? "#F59E0B" : "currentColor"} />
+                          <span>{isThisSpeaking ? "Stop Voice" : "Listen in Voice"}</span>
+                        </button>
+                        <span style={{ fontSize: "0.65rem", color: "var(--text-muted)" }}>{msg.timestamp}</span>
+                      </div>
+                    )}
                   </div>
-                  <span style={{ fontSize: "0.65rem", color: "var(--text-muted)", marginTop: "3px", padding: "0 4px" }}>
-                    {msg.timestamp}
-                  </span>
+
+                  {isUser && (
+                    <span style={{ fontSize: "0.65rem", color: "var(--text-muted)", marginTop: "3px", padding: "0 4px" }}>
+                      {msg.timestamp}
+                    </span>
+                  )}
                 </div>
               );
             })}
@@ -402,13 +602,13 @@ export default function ChatWidget() {
             {isTyping && (
               <div style={{ display: "flex", alignItems: "center", gap: "6px", padding: "8px 12px", background: "var(--bg-surface)", borderRadius: "16px", width: "fit-content" }}>
                 <Bot size={14} color="#F59E0B" />
-                <span style={{ fontSize: "0.78rem", color: "var(--text-secondary)" }}>Brewing multilingual answer...</span>
+                <span style={{ fontSize: "0.78rem", color: "var(--text-secondary)" }}>Brewing answer & voice synthesis...</span>
               </div>
             )}
             <div ref={messagesEndRef} />
           </div>
 
-          {/* Quick Action Suggestion Chips in Multiple Languages */}
+          {/* Quick Action Suggestion Chips in Multiple Languages & Revenue Model */}
           <div
             style={{
               padding: "8px 14px",
@@ -450,7 +650,7 @@ export default function ChatWidget() {
             ))}
           </div>
 
-          {/* Input Box */}
+          {/* Input Box with Microphone & Send */}
           <form
             onSubmit={(e) => {
               e.preventDefault();
@@ -465,6 +665,28 @@ export default function ChatWidget() {
               alignItems: "center",
             }}
           >
+            {/* Microphone Button */}
+            <button
+              type="button"
+              onClick={toggleVoiceRecognition}
+              style={{
+                width: "38px",
+                height: "38px",
+                borderRadius: "50%",
+                background: isListening ? "rgba(239, 68, 68, 0.25)" : "var(--bg-surface)",
+                border: `1px solid ${isListening ? "#EF4444" : "var(--border-subtle)"}`,
+                color: isListening ? "#EF4444" : "var(--accent-amber)",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                cursor: "pointer",
+                flexShrink: 0,
+              }}
+              title={isListening ? "Listening... (Click to stop)" : "Speak by voice"}
+            >
+              {isListening ? <MicOff size={16} /> : <Mic size={16} />}
+            </button>
+
             <input
               type="text"
               className="form-input"
@@ -473,7 +695,7 @@ export default function ChatWidget() {
                 fontSize: "0.88rem",
                 padding: "9px 14px",
               }}
-              placeholder="Ask in ANY language (Kannada, Hindi, English, Spanish...)"
+              placeholder={isListening ? "Listening to your voice..." : "Type or speak your order in ANY language..."}
               value={input}
               onChange={(e) => setInput(e.target.value)}
             />
@@ -483,14 +705,14 @@ export default function ChatWidget() {
               disabled={!input.trim() || isTyping}
               className="btn btn-primary"
               style={{
-                width: "40px",
-                height: "40px",
+                width: "38px",
+                height: "38px",
                 padding: 0,
                 borderRadius: "50%",
                 flexShrink: 0,
               }}
             >
-              <Send size={16} />
+              <Send size={15} />
             </button>
           </form>
         </div>

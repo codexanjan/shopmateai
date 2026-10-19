@@ -30,7 +30,12 @@ Café Ground Truth:
 - Hours: ${cafeInfo.hours}
 - Wi-Fi: "${cafeInfo.wifiSsid}" (Password: "${cafeInfo.wifiPass}")
 - Pet Policy: 100% Pet-friendly outdoor patio
-- Pricing Model: ₹499/month flat SaaS fee for café owners after a 14-day free trial.
+- Pricing & Revenue Model:
+  * Flat ₹499/month SaaS subscription per location after a 14-day free trial.
+  * 0% commission on orders (100% of order value goes directly to café via UPI/cards).
+  * Saves cafés ₹24,501/month (₹2.94 Lakhs/yr) compared to 25% aggregator cuts (Swiggy/Zomato) on ₹1 Lakh orders.
+  * Optional add-ons: Multi-location sync (₹999/mo), WhatsApp Cloud API ordering bot (₹1,499/mo).
+  * 100% free for customers with zero service fees.
 - Active Promo Codes: "FIRSTSIP" (15% off), "CAFE50" (₹50 off orders over ₹300).
 - UPI ID: ${cafeInfo.upiId}
 
@@ -259,6 +264,25 @@ export const generateHeuristicResponse = (userMessage, cafeInfo, menuItems, cust
         type: "ADD_TO_CART",
         payload: { item, qty: 1 },
       },
+    };
+  }
+
+  // REVENUE MODEL & PRICING INQUIRIES (How our revenue model works)
+  if (
+    text.includes("revenue") ||
+    text.includes("pricing") ||
+    text.includes("subscription") ||
+    text.includes("commission") ||
+    text.includes("business model") ||
+    text.includes("swiggy") ||
+    text.includes("zomato") ||
+    text.includes("how much does") ||
+    text.includes("how do you make money") ||
+    text.includes("roi")
+  ) {
+    return {
+      text: `💰 **ShopMate AI Revenue Model & Transparent Pricing:**\n\n• **Flat SaaS Subscription:** Only **₹499 / month** per café location (includes a 14-day zero-risk free trial).\n• **0% Order Commission:** Unlike Swiggy & Zomato which charge 25%–30% per order, ShopMate AI charges 0% commission. 100% of the customer's payment goes directly into the café owner's UPI/bank account.\n• **Massive Monthly Savings:** On ₹1,00,000 in monthly digital orders:\n  - 25% Aggregator Commission = ₹25,000 lost\n  - ShopMate AI Flat Fee = ₹499\n  - **Net Café Owner Savings: ₹24,501 / month (₹2,94,012 / year)!**\n• **B2B Growth Add-Ons:** Multi-outlet sync (₹999/mo) and Meta WhatsApp Cloud API ordering bot (₹1,499/mo).\n• **For Customers:** 100% Free with zero convenience fees or menu markups!`,
+      action: null,
     };
   }
 

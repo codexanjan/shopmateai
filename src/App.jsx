@@ -7,16 +7,17 @@ import Navbar from "./components/common/Navbar";
 import Footer from "./components/common/Footer";
 import AuthModal from "./components/common/AuthModal";
 import Toast from "./components/common/Toast";
-import JudgePitchSimulator from "./components/common/JudgePitchSimulator";
 
 // Auth Page (Separate Standalone View)
 import AuthPage from "./components/auth/AuthPage";
 
 // Landing Components
 import HeroSection from "./components/landing/HeroSection";
+import LiveCatalogSection from "./components/landing/LiveCatalogSection";
 import FeaturesGrid from "./components/landing/FeaturesGrid";
 import PricingSection from "./components/landing/PricingSection";
 import Testimonials from "./components/landing/Testimonials";
+import LandingAuthSection from "./components/landing/LandingAuthSection";
 
 // Customer Components
 import MenuCatalog from "./components/customer/MenuCatalog";
@@ -28,7 +29,7 @@ import ReservationModal from "./components/customer/ReservationModal";
 import PreferenceMemoryModal from "./components/customer/PreferenceMemoryModal";
 import OrderRecoveryBanner from "./components/customer/OrderRecoveryBanner";
 
-// Multilingual Chatbot
+// Voice & Multilingual Chatbot
 import ChatWidget from "./components/chatbot/ChatWidget";
 
 // Admin Dashboard
@@ -48,9 +49,11 @@ function MainApp() {
         {currentView === "landing" && (
           <div className="animate-fade-in">
             <HeroSection setCurrentView={setCurrentView} />
+            <LiveCatalogSection setCurrentView={setCurrentView} />
             <FeaturesGrid />
             <PricingSection setCurrentView={setCurrentView} />
             <Testimonials />
+            <LandingAuthSection setCurrentView={setCurrentView} />
           </div>
         )}
 
@@ -100,7 +103,6 @@ function MainApp() {
       <AuthModal />
       <Toast />
       <ChatWidget />
-      <JudgePitchSimulator setCurrentView={setCurrentView} />
       <PreferenceMemoryModal />
       <OrderRecoveryBanner />
     </div>
