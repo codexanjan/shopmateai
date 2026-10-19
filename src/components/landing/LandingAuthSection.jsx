@@ -49,7 +49,6 @@ export default function LandingAuthSection({ setCurrentView }) {
                 marginBottom: "16px",
               }}
             >
-              <Sparkles size={14} color="#F59E0B" />
               <span>Customer & Owner Access Portal</span>
             </div>
 

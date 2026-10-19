@@ -32,14 +32,13 @@ export default function HeroSection({ setCurrentView }) {
                 marginBottom: "20px",
               }}
             >
-              <Sparkles size={15} color="#F59E0B" />
-              <span>Bengaluru's Premier Artisan Micro-Roastery & 24/7 AI Concierge</span>
+              <span>Bengaluru's Premier Artisan Micro-Roastery & Espresso Bar</span>
             </div>
 
             {/* Main Headline */}
             <h1 style={{ marginBottom: "20px" }}>
               Turn Your Café Into a <br />
-              <span className="text-gradient-amber">Smart 24/7 Ordering Hub</span> with Conversational AI
+              <span className="text-gradient-amber">Smart 24/7 Ordering Hub</span> with Direct Customer Orders
             </h1>
 
             {/* Subtitle */}

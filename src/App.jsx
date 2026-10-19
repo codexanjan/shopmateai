@@ -8,8 +8,13 @@ import Footer from "./components/common/Footer";
 import AuthModal from "./components/common/AuthModal";
 import Toast from "./components/common/Toast";
 
-// Auth Page (Separate Standalone View)
-import AuthPage from "./components/auth/AuthPage";
+// Separate Auth Screens
+import LoginPage from "./components/auth/LoginPage";
+import SignupPage from "./components/auth/SignupPage";
+
+// Separate Product Pages
+import FeaturesPage from "./components/pages/FeaturesPage";
+import PricingPage from "./components/pages/PricingPage";
 
 // Landing Components
 import HeroSection from "./components/landing/HeroSection";
@@ -36,7 +41,7 @@ import ChatWidget from "./components/chatbot/ChatWidget";
 import AdminDashboard from "./components/admin/AdminDashboard";
 
 function MainApp() {
-  const [currentView, setCurrentView] = useState("landing"); // landing | menu | table | tracker | admin | auth
+  const [currentView, setCurrentView] = useState("landing"); // landing | features | pricing | menu | table | tracker | admin | login | signup
 
   return (
     <div className="app-container">
@@ -45,7 +50,7 @@ function MainApp() {
 
       {/* Main Content Router */}
       <main className="main-content">
-        {/* Separate Landing Page */}
+        {/* Landing Page */}
         {currentView === "landing" && (
           <div className="animate-fade-in">
             <HeroSection setCurrentView={setCurrentView} />
@@ -54,6 +59,20 @@ function MainApp() {
             <PricingSection setCurrentView={setCurrentView} />
             <Testimonials />
             <LandingAuthSection setCurrentView={setCurrentView} />
+          </div>
+        )}
+
+        {/* Separate Features Page */}
+        {currentView === "features" && (
+          <div className="animate-fade-in">
+            <FeaturesPage setCurrentView={setCurrentView} />
+          </div>
+        )}
+
+        {/* Separate Pricing Page */}
+        {currentView === "pricing" && (
+          <div className="animate-fade-in">
+            <PricingPage setCurrentView={setCurrentView} />
           </div>
         )}
 
@@ -85,10 +104,17 @@ function MainApp() {
           </div>
         )}
 
-        {/* Separate Dedicated Sign In / Signup Page */}
-        {currentView === "auth" && (
+        {/* Separate Login Screen */}
+        {currentView === "login" && (
           <div className="animate-fade-in">
-            <AuthPage setCurrentView={setCurrentView} />
+            <LoginPage setCurrentView={setCurrentView} />
+          </div>
+        )}
+
+        {/* Separate Signup Screen */}
+        {currentView === "signup" && (
+          <div className="animate-fade-in">
+            <SignupPage setCurrentView={setCurrentView} />
           </div>
         )}
       </main>

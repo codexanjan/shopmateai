@@ -12,25 +12,23 @@ import {
   LayoutDashboard,
   UtensilsCrossed,
   Clock,
-  Brain,
   Home,
   Menu as MenuIcon,
   X,
   LogIn,
   LogOut,
+  Tag,
+  Layers,
 } from "lucide-react";
 
 export default function Navbar({ currentView, setCurrentView }) {
-  const { currentUser, isAdmin, switchRole, logout } = useAuth();
+  const { currentUser, isAdmin, switchRole, logout, isAuthenticated } = useAuth();
   const {
     cartCount,
     cartTotal,
     setIsCartOpen,
-    setIsReservationModalOpen,
-    setIsPreferenceModalOpen,
     soundEnabled,
     toggleSound,
-    activeTrackingOrderId,
   } = useStore();
 
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -52,7 +50,7 @@ export default function Navbar({ currentView, setCurrentView }) {
         borderLeft: "none",
         borderRight: "none",
         borderBottom: "1px solid var(--border-subtle)",
-        background: "rgba(18, 15, 12, 0.94)",
+        background: "rgba(18, 15, 12, 0.95)",
         backdropFilter: "blur(20px)",
       }}
     >
@@ -81,8 +79,8 @@ export default function Navbar({ currentView, setCurrentView }) {
         >
           <div
             style={{
-              width: "40px",
-              height: "40px",
+              width: "38px",
+              height: "38px",
               borderRadius: "var(--radius-md)",
               background: "linear-gradient(135deg, var(--accent-amber) 0%, var(--accent-caramel) 100%)",
               display: "flex",
@@ -127,12 +125,12 @@ export default function Navbar({ currentView, setCurrentView }) {
               </span>
             </div>
             <div style={{ fontSize: "0.7rem", color: "var(--text-muted)", marginTop: "-2px" }}>
-              Brew & Bliss Artisan Roastery
+              Brew & Bliss Roastery
             </div>
           </div>
         </div>
 
-        {/* Center Menu Bar Navigation Links (Clean & Responsive) */}
+        {/* Center Menu Bar Navigation Links (ReviewPilot Style) */}
         <nav
           style={{
             display: "flex",
@@ -151,8 +149,33 @@ export default function Navbar({ currentView, setCurrentView }) {
               padding: "6px 12px",
             }}
           >
-            <Home size={15} />
             <span>Home</span>
+          </button>
+
+          <button
+            onClick={() => navigateTo("features")}
+            className={`btn btn-ghost btn-sm ${currentView === "features" ? "text-amber" : ""}`}
+            style={{
+              fontWeight: currentView === "features" ? 700 : 500,
+              background: currentView === "features" ? "rgba(245, 158, 11, 0.12)" : "transparent",
+              borderRadius: "var(--radius-full)",
+              padding: "6px 12px",
+            }}
+          >
+            <span>Features</span>
+          </button>
+
+          <button
+            onClick={() => navigateTo("pricing")}
+            className={`btn btn-ghost btn-sm ${currentView === "pricing" ? "text-amber" : ""}`}
+            style={{
+              fontWeight: currentView === "pricing" ? 700 : 500,
+              background: currentView === "pricing" ? "rgba(245, 158, 11, 0.12)" : "transparent",
+              borderRadius: "var(--radius-full)",
+              padding: "6px 12px",
+            }}
+          >
+            <span>Pricing</span>
           </button>
 
           <button
@@ -165,7 +188,6 @@ export default function Navbar({ currentView, setCurrentView }) {
               padding: "6px 12px",
             }}
           >
-            <UtensilsCrossed size={15} />
             <span>Café Menu</span>
           </button>
 
@@ -179,22 +201,7 @@ export default function Navbar({ currentView, setCurrentView }) {
               padding: "6px 12px",
             }}
           >
-            <CalendarCheck size={15} />
             <span>Book Table</span>
-          </button>
-
-          <button
-            onClick={() => navigateTo("tracker")}
-            className={`btn btn-ghost btn-sm ${currentView === "tracker" ? "text-amber" : ""}`}
-            style={{
-              fontWeight: currentView === "tracker" ? 700 : 500,
-              background: currentView === "tracker" ? "rgba(245, 158, 11, 0.12)" : "transparent",
-              borderRadius: "var(--radius-full)",
-              padding: "6px 12px",
-            }}
-          >
-            <Clock size={15} />
-            <span>Order Tracker</span>
           </button>
 
           <button
@@ -211,36 +218,12 @@ export default function Navbar({ currentView, setCurrentView }) {
               padding: "6px 12px",
             }}
           >
-            <LayoutDashboard size={15} />
             <span>Dashboard</span>
           </button>
         </nav>
 
-        {/* Right Action Tools: AI Memory, Role Switcher, Sound, Cart, Auth */}
+        {/* Right Tools & Auth CTAs */}
         <div style={{ display: "flex", alignItems: "center", gap: "8px", flexShrink: 0 }}>
-          {/* AI Memory Badge */}
-          <button
-            onClick={() => setIsPreferenceModalOpen(true)}
-            className="hide-mobile"
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: "4px",
-              background: "rgba(139, 92, 246, 0.12)",
-              border: "1px solid rgba(139, 92, 246, 0.35)",
-              borderRadius: "var(--radius-full)",
-              padding: "5px 9px",
-              fontSize: "0.72rem",
-              color: "#C4B5FD",
-              cursor: "pointer",
-              fontWeight: 600,
-            }}
-            title="Customer Taste & Diet AI Memory"
-          >
-            <Brain size={13} color="#A78BFA" />
-            <span>Memory</span>
-          </button>
-
           {/* Quick Role Toggle Pill (Customer vs Owner) */}
           <div
             className="hide-mobile"
@@ -322,9 +305,9 @@ export default function Navbar({ currentView, setCurrentView }) {
           {/* Cart Trigger Button - NEVER CLIPPED */}
           <button
             onClick={() => setIsCartOpen(true)}
-            className="btn btn-primary"
+            className="btn btn-secondary"
             style={{
-              padding: "7px 14px",
+              padding: "7px 12px",
               fontSize: "0.85rem",
               display: "flex",
               alignItems: "center",
@@ -333,13 +316,13 @@ export default function Navbar({ currentView, setCurrentView }) {
               whiteSpace: "nowrap",
             }}
           >
-            <ShoppingBag size={16} />
-            <span style={{ fontWeight: 700 }}>Cart</span>
+            <ShoppingBag size={15} />
+            <span style={{ fontWeight: 600 }}>Cart</span>
             {cartCount > 0 && (
               <span
                 style={{
-                  background: "#0F0D0B",
-                  color: "var(--accent-amber)",
+                  background: "var(--accent-amber)",
+                  color: "#0F0D0B",
                   borderRadius: "var(--radius-full)",
                   fontSize: "0.72rem",
                   fontWeight: 800,
@@ -352,34 +335,32 @@ export default function Navbar({ currentView, setCurrentView }) {
             )}
           </button>
 
-          {/* Separate Login / Signup Page Trigger */}
+          {/* Separate Log In & Start Free Trial Buttons (Matching ReviewPilot style) */}
           <button
-            onClick={() => navigateTo("auth")}
-            className="btn btn-secondary btn-sm"
+            onClick={() => navigateTo("login")}
+            className="btn btn-ghost btn-sm hide-mobile"
             style={{
               padding: "6px 12px",
-              fontSize: "0.8rem",
+              fontSize: "0.85rem",
               fontWeight: 600,
-              display: "flex",
-              alignItems: "center",
-              gap: "6px",
               flexShrink: 0,
-              border: currentView === "auth" ? "1px solid var(--accent-amber)" : "1px solid var(--border-subtle)",
             }}
-            title={currentUser ? `Account: ${currentUser.name}` : "Sign In or Register"}
           >
-            {currentUser?.avatar ? (
-              <img
-                src={currentUser.avatar}
-                alt={currentUser.name}
-                style={{ width: "22px", height: "22px", borderRadius: "50%", objectFit: "cover" }}
-              />
-            ) : (
-              <LogIn size={14} />
-            )}
-            <span className="hide-mobile">
-              {currentUser ? currentUser.name.split(" ")[0] : "Sign In"}
-            </span>
+            <span>Log in</span>
+          </button>
+
+          <button
+            onClick={() => navigateTo("signup")}
+            className="btn btn-primary btn-sm"
+            style={{
+              padding: "7px 15px",
+              fontSize: "0.85rem",
+              fontWeight: 700,
+              flexShrink: 0,
+              whiteSpace: "nowrap",
+            }}
+          >
+            <span>Start free trial</span>
           </button>
 
           {/* Mobile Menu Hamburger */}
@@ -419,7 +400,25 @@ export default function Navbar({ currentView, setCurrentView }) {
             style={{ justifyContent: "flex-start", gap: "10px", width: "100%" }}
           >
             <Home size={18} />
-            <span>Home (Landing)</span>
+            <span>Home</span>
+          </button>
+
+          <button
+            onClick={() => navigateTo("features")}
+            className="btn btn-ghost"
+            style={{ justifyContent: "flex-start", gap: "10px", width: "100%" }}
+          >
+            <Layers size={18} />
+            <span>Features</span>
+          </button>
+
+          <button
+            onClick={() => navigateTo("pricing")}
+            className="btn btn-ghost"
+            style={{ justifyContent: "flex-start", gap: "10px", width: "100%" }}
+          >
+            <Tag size={18} />
+            <span>Pricing</span>
           </button>
 
           <button
@@ -441,15 +440,6 @@ export default function Navbar({ currentView, setCurrentView }) {
           </button>
 
           <button
-            onClick={() => navigateTo("tracker")}
-            className="btn btn-ghost"
-            style={{ justifyContent: "flex-start", gap: "10px", width: "100%" }}
-          >
-            <Clock size={18} />
-            <span>Order Tracker</span>
-          </button>
-
-          <button
             onClick={() => {
               switchRole("admin");
               navigateTo("admin");
@@ -461,14 +451,22 @@ export default function Navbar({ currentView, setCurrentView }) {
             <span>Kitchen & Admin Dashboard</span>
           </button>
 
-          <button
-            onClick={() => navigateTo("auth")}
-            className="btn btn-secondary"
-            style={{ justifyContent: "center", gap: "8px", width: "100%", marginTop: "8px" }}
-          >
-            <LogIn size={16} />
-            <span>Sign In / Create Account</span>
-          </button>
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "10px", marginTop: "8px" }}>
+            <button
+              onClick={() => navigateTo("login")}
+              className="btn btn-secondary"
+              style={{ justifyContent: "center", width: "100%" }}
+            >
+              <span>Log in</span>
+            </button>
+            <button
+              onClick={() => navigateTo("signup")}
+              className="btn btn-primary"
+              style={{ justifyContent: "center", width: "100%" }}
+            >
+              <span>Start free trial</span>
+            </button>
+          </div>
         </div>
       )}
     </header>

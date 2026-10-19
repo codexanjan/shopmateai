@@ -83,8 +83,7 @@ export default function TableBookingPage({ setCurrentView }) {
       {/* Page Header */}
       <div style={{ textAlign: "center", maxWidth: "680px", margin: "0 auto 36px" }}>
         <div className="badge badge-amber" style={{ marginBottom: "12px", fontSize: "0.82rem" }}>
-          <Sparkles size={14} />
-          <span>Complimentary Table Reservation</span>
+          <span>Table Reservation Desk</span>
         </div>
         <h1 style={{ fontSize: "2.4rem", fontWeight: 800, marginBottom: "12px", letterSpacing: "-0.02em" }}>
           Reserve Your Table at <span className="text-amber">{cafeInfo.name}</span>

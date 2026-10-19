@@ -242,14 +242,6 @@ Switch between profiles instantly using the **Customer ⇋ Owner** toggle pill o
 
 ---
 
-## 📜 Complete Documentation Suite
-
-- [PRD.md](file:///c:/Users/anjan/Downloads/SHOP%20MATE/PRD.md) — Product Requirements Document
-- [SRS.md](file:///c:/Users/anjan/Downloads/SHOP%20MATE/SRS.md) — Software Requirements Specification
-- [TRD.md](file:///c:/Users/anjan/Downloads/SHOP%20MATE/TRD.md) — Technical Requirements Document
-- [DEVELOPMENT_STRUCTURE_AND_UI_UX_PLAN.md](file:///c:/Users/anjan/Downloads/SHOP%20MATE/DEVELOPMENT_STRUCTURE_AND_UI_UX_PLAN.md) — UI/UX & Design Tokens
-
----
 
 ## ⚖️ License
 

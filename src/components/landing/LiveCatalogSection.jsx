@@ -69,7 +69,6 @@ export default function LiveCatalogSection({ setCurrentView }) {
               marginBottom: "16px",
             }}
           >
-            <Sparkles size={14} color="#F59E0B" />
             <span>Live Roastery & Bakery Inventory</span>
           </div>
 
