@@ -8,33 +8,75 @@
 
 ---
 
-## 🌐 Live Production Application
+## 🌐 Live Production Application Links
 
-> **Primary Live Production URL:** **[https://shopmateai.vercel.app](https://shopmateai.vercel.app)**  
-> **Secondary Production Mirror:** **[https://shopmate-ai-tau.vercel.app](https://shopmate-ai-tau.vercel.app)**  
-> **GitHub Repository:** **[https://github.com/codexanjan/shopmateai](https://github.com/codexanjan/shopmateai)**  
-> **Local Dev Server:** `http://127.0.0.1:5173/`
+> 🚀 **Primary Live Production URL:** **[https://shopmateai.vercel.app](https://shopmateai.vercel.app)**  
+> 🪞 **Secondary Production Mirror:** **[https://shopmate-ai-tau.vercel.app](https://shopmate-ai-tau.vercel.app)**  
+> 📦 **GitHub Repository:** **[https://github.com/codexanjan/shopmateai](https://github.com/codexanjan/shopmateai)**  
+> 💻 **Local Development Server:** `http://127.0.0.1:5173/`
 
 ---
 
-## 📸 App Architecture & Visual Pages Overview
+## 📸 Visual App Showcase & Photo Gallery
 
-ShopMate AI is structured into **clean, dedicated standalone pages** and views:
-
-| Page / View | Route State | Purpose & Features |
+| View | Screenshot / Visual | Key Capabilities |
 | :--- | :--- | :--- |
-| **🏠 Separate Landing Page** | `landing` | High-converting public showcase, value proposition, 7 AI superpowers, live café stats ticker, transparent pricing comparison (₹499/mo vs 30% commission), customer testimonials. |
-| **☕ Separate Café Menu Page** | `menu` | Artisanal beverage & food catalog, category tabs (Espresso, Cold Brew, Bakery, Brunch), dietary pills (Vegan 🌱, Gluten-Free 🌾, Chef's Special 🌟), search, item customization modal. |
-| **📅 Separate Table Booking Page** | `table` | Dedicated table reservation experience, atmosphere selector (🌿 Sunlit Pet-Friendly Patio, ☕ Indoor Cozy Booth, 💻 Quiet Work Zone with 300 Mbps Wi-Fi & outlets), instant confirmation. |
-| **⏱️ Separate Order Tracker Page** | `tracker` | Live 4-stage brewing progress (Order Placed ➔ Brewing / In Oven ➔ Quality Check ➔ Ready for Pickup), dynamic preparation countdown timer, barista status. |
-| **📊 Separate Owner & Kitchen Dashboard** | `admin` | Live Kitchen Kanban dispatch board (Pending, Brewing, Ready, Delivered), sales & order metrics, AI Inventory Restock alerts, Menu item availability toggle (instantly syncs with AI recovery). |
-| **🔑 Separate Login & Signup Page** | `auth` | Standalone split-screen authentication portal, toggle between Sign In and Create Account, 1-Click Instant Demo Logins (Customer, Café Owner, Barista Staff), form validation, role routing. |
+| **🏠 Separate Landing Page** | <img src="https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?w=900&auto=format&fit=crop&q=80" alt="Landing Page Hero" width="400"/> | • High-conversion hero with coffee crema aesthetics<br>• Live café pulse indicator & operating hours<br>• 7 AI superpowers breakdown & 4-stat metric ticker<br>• Transparent ₹499/mo vs 25% aggregator fee calculator |
+| **☕ Separate Café Menu Page** | <img src="https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?w=900&auto=format&fit=crop&q=80" alt="Artisanal Menu Catalog" width="400"/> | • Category filters: Espresso, Cold Brew, Bakery, Brunch<br>• Dietary badges: Vegan 🌱, Gluten-Free 🌾, Chef's Choice 🌟<br>• Customizer modal: Milk (Oat/Almond), sweetness, notes<br>• Smart Order Recovery banner for sold-out items |
+| **📅 Separate Table Booking Page** | <img src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=900&auto=format&fit=crop&q=80" alt="Table Booking" width="400"/> | • 🌿 Sunlit Garden Patio (100% Pet-Friendly)<br>• ☕ Indoor Cozy Booths with warm ambient velvet banquettes<br>• 💻 Quiet Work Zone with 300 Mbps Wi-Fi & power outlets<br>• Instant booking confirmation with Wi-Fi credentials |
+| **📊 Kitchen & Admin Dashboard** | <img src="https://images.unsplash.com/photo-1556742049-0a67c5574f73?w=900&auto=format&fit=crop&q=80" alt="Kitchen Kanban" width="400"/> | • 4-column Live Kitchen Kanban (Pending, Brewing, Ready, Completed)<br>• Tactile sound notifications with Web Audio synth<br>• Predictive AI Inventory restock alerts (e.g. Oat Milk, Arabica)<br>• Real-time stock toggle syncing with AI chatbot |
+| **⏱️ Live Order Brewing Tracker** | <img src="https://images.unsplash.com/photo-1517256064527-09c73fc73e38?w=900&auto=format&fit=crop&q=80" alt="Order Tracker" width="400"/> | • Real-time 4-step brewing pipeline with progress bar<br>• Dynamic prep time countdown: `Max(Prep Time) + 2.5m * Queue`<br>• Barista status & direct UPI invoice receipts |
+| **🔑 Separate Login & Signup Page** | <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=900&auto=format&fit=crop&q=80" alt="Auth Page" width="400"/> | • Dedicated split-screen auth experience<br>• 1-Click Instant Demo Profiles (Alex - Customer, Viraj - Owner)<br>• Tab toggle: Sign In vs Create Account<br>• Role-based automatic routing to Menu or Dashboard |
+
+---
+
+## 💰 How Our Revenue Model Works (Transparent B2B SaaS)
+
+Small cafés, artisan roasters, and neighbourhood bakeries operate on razor-thin net profit margins (typically **12% to 18%**).
+
+### 1. The Core Problem with Food Aggregators (Swiggy, Zomato, UberEats)
+- **Extortionate Commissions:** Food aggregators take **20% to 30% of gross order value** on every single transaction.
+- **Lost Customer Data:** Aggregators own customer emails and phone numbers, preventing the café from building loyalty.
+- **Hidden Fees:** Menu price inflation, surge fees, and payment gateway markups irritate customers.
+
+### 2. The ShopMate AI Revenue Architecture
+ShopMate AI replaces predatory commissions with a predictable, flat-rate **Subscription SaaS Model**:
+
+```
+┌────────────────────────────────────────────────────────────────────────┐
+│                        SHOPMATE AI REVENUE MODEL                       │
+├────────────────────────────────┬───────────────────────────────────────┤
+│ 1. Core Tier (Per Location)    │ Flat ₹499 / month (14-day Free Trial) │
+│ 2. Annual Discount             │ ₹4,999 / year (Save 17% / 2 Mo Free)  │
+│ 3. Commission Rate on Orders   │ 0% FOREVER (Direct Customer UPI)      │
+│ 4. Multi-Outlet Add-On         │ +₹999 / month for up to 3 branches   │
+│ 5. WhatsApp API Gateway Add-on │ +₹1,499 / month (Meta Cloud API Bridge│
+└────────────────────────────────┴───────────────────────────────────────┘
+```
+
+### 3. The Café Owner ROI Savings Math
+
+```mermaid
+pie title Monthly Revenue Distribution on ₹1,00,000 Digital Orders
+    "Aggregator Commission Lost (25%)" : 25000
+    "ShopMate AI Flat Fee" : 499
+    "Net Money Kept by Café Owner with ShopMate AI" : 24501
+```
+
+| Monthly Online Sales | Aggregator Cut (25%) | ShopMate AI Flat Fee | Monthly Net Savings | Annual Profit Increase |
+| :--- | :--- | :--- | :--- | :--- |
+| **₹50,000 / mo** | ₹12,500 | ₹499 | **₹12,001 / mo** | **₹1,44,012 / year** |
+| **₹1,00,000 / mo** | ₹25,000 | ₹499 | **₹24,501 / mo** | **₹2,94,012 / year** |
+| **₹2,50,000 / mo** | ₹62,500 | ₹499 | **₹62,001 / mo** | **₹7,44,012 / year** |
+| **₹5,00,000 / mo** | ₹1,25,000 | ₹499 | **₹1,24,501 / mo** | **₹14,94,012 / year** |
+
+> 💡 **Key Takeaway:** A small café doing just ₹1,00,000/month in digital takeaway orders saves over **₹2.94 Lakhs per year** simply by switching from a 25% aggregator commission to ShopMate AI's flat ₹499/mo plan!
 
 ---
 
 ## 🌐 Universal Multilingual Chatbot (Answers in ALL Languages)
 
-ShopMate AI's conversational concierge is equipped with **universal multilingual intelligence**:
+ShopMate AI's conversational concierge is equipped with **universal multilingual natural language understanding**:
 
 ```
 ┌─────────────────────────────────────────────────────────────────────────┐
@@ -51,7 +93,7 @@ ShopMate AI's conversational concierge is equipped with **universal multilingual
 └──────────────────────────┴──────────────────────────────────────────────┘
 ```
 
-- **Zero Hallucination Grounding:** Prices are always grounded in live database prices in Indian Rupees (₹).
+- **Zero Hallucination Grounding:** Prices and availability strictly reflect the live menu database in Indian Rupees (₹).
 - **Hinglish, Kanglish & Tanglish Support:** Accurately recognizes transliterated phonetic phrases.
 - **Language Selector Ribbon:** Floating drawer features quick-toggle language tabs and localized suggestion chips.
 
@@ -79,7 +121,7 @@ graph TD
 ```
 
 ### 1. Smart Order Recovery
-When a customer requests an out-of-stock item (e.g. *Dark Chocolate Sea Salt Brownie*), the AI concierge never stops with a dead-end rejection. It explains that the morning batch finished and recommends in-stock chef alternatives (*Flaky French Butter Croissant ₹160* or *Almond Frangipane Tart ₹210*).
+When a customer requests an out-of-stock item (e.g. *Dark Chocolate Sea Salt Brownie*), the AI concierge never gives a dead-end rejection. It explains that the morning batch finished and recommends in-stock chef alternatives (*Flaky French Butter Croissant ₹160* or *Almond Frangipane Tart ₹210*).
 
 ### 2. Universal Multilingual Ordering
 Customers can order fluently in their native tongue. Whether typing *"Ondu filter coffee kodi"* (Kannada) or *"Do masala chai aur pastry chahiye"* (Hindi), the AI understands quantities, prepares the order, and updates the cart with 1 click.
