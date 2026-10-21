@@ -18,7 +18,7 @@ export default function LandingAuthSection({ setCurrentView }) {
     <section className="section-padding" style={{ background: "radial-gradient(ellipse at bottom, rgba(245, 158, 11, 0.08) 0%, rgba(15, 13, 11, 0) 70%)" }}>
       <div className="container">
         <div
-          className="glass-panel"
+          className="glass-panel auth-grid-responsive"
           style={{
             maxWidth: "960px",
             margin: "0 auto",
@@ -30,7 +30,6 @@ export default function LandingAuthSection({ setCurrentView }) {
             gap: "36px",
             alignItems: "center",
           }}
-          className="auth-grid-responsive"
         >
           {/* Left Column */}
           <div>
